@@ -8,7 +8,7 @@ Simple arduino emulator of programming language with schematic visualization of 
 - Adding components with a description of their behavior
 - Schematic visualization of the project before live assembly
 
-![](https://img.shields.io/github/stars/akeloya/arduino)![]
-(https://img.shields.io/github/forks/akeloya/arduino)![]
-(https://img.shields.io/github/release/akeloya/arduino)![]
-(https://img.shields.io/github/issues/akeloya/arduino)![]
+![](https://img.shields.io/github/stars/akeloya/arduino)
+![](https://img.shields.io/github/forks/akeloya/arduino)
+![](https://img.shields.io/github/release/akeloya/arduino)
+![](https://img.shields.io/github/issues/akeloya/arduino)
