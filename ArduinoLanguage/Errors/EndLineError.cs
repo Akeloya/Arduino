@@ -6,7 +6,6 @@ namespace ArduinoLanguage.Errors
     {
         public StringEndError(int line) : base(line, (int)ErrorCodes.StringEndError)
         {
-
         }
     }
 }

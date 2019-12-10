@@ -6,7 +6,6 @@ namespace ArduinoLanguage.Errors
     {
         public CharConstEmpty(int line) : base(line, (int)ErrorCodes.CharConstEmpty)
         {
-
         }
     }
 }

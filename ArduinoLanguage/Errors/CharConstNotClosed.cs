@@ -6,7 +6,6 @@ namespace ArduinoLanguage.Errors
     {
         public CharConstNotClosed(int line) : base (line, (int)ErrorCodes.CharConstNotClosed)
         {
-
         }
     }
 }
