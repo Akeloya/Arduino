@@ -14,6 +14,6 @@ jobs:
       with:
         dotnet-version: 2.2.108
     - name: Restore packages
-      run: dotnet restore --configfile ~/ArduinoEmulator/packages.config
+      run: dotnet restore --configfile ArduinoEmulator/packages.config
     - name: Build with dotnet
       run: dotnet build --configuration Release
