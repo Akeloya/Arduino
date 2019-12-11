@@ -13,5 +13,17 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 2.2.108
+    - name: Install Microsoft.NetFramework.Analyze
+      run: dotnet add package Microsoft.NetFramework.Analyze
+    - name: Install Microsoft.NetCore.Analyzers
+      run: dotnet add package Microsoft.NetCore.Analyzers
+    - name: Install Microsoft.CodeQuality.Analyzers
+      run: dotnet add package Microsoft.CodeQuality.Analyzers
+    - name: Install Microsoft.CodeAnalysis.VersionCheckAnalyzer
+      run: dotnet add package Microsoft.CodeAnalysis.VersionCheckAnalyzer
+    - name: Install Microsoft.CodeAnalysis.FxCopAnalyzers
+      run: dotnet add package Microsoft.CodeAnalysis.FxCopAnalyzers
+    - name: Install Extended.Wpf.Toolkit
+      run: dotnet add package Extended.Wpf.Toolkit
     - name: Build with dotnet
       run: dotnet build --configuration Release
