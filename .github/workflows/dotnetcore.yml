@@ -2,16 +2,18 @@ name: .NET Core
 
 on: [push]
 
-jobs:
+jobs:      
   build:
 
     runs-on: windows-latest
 
-    steps:
+    steps:      
     - uses: actions/checkout@v1
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 2.2.108
+    - name: Restore packages
+      run: nuget restore Arduino.sln
     - name: Build with dotnet
       run: dotnet build --configuration Release
