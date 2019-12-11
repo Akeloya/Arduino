@@ -14,6 +14,6 @@ jobs:
       with:
         dotnet-version: 2.2.108
     - name: Restore packages
-      run: nuget restore Arduino.sln
+      run: dotnet restore  Arduino.sln
     - name: Build with dotnet
       run: dotnet build --configuration Release
