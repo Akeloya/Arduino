@@ -13,7 +13,7 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 2.2.108
-    - name: Restore packages
-      run: dotnet restore  Arduino.sln
+    - name: Restore packages ArduinoEmulator
+      run: dotnet restore  ~/Arduino/ArduinoEmulator.csproj
     - name: Build with dotnet
       run: dotnet build --configuration Release
