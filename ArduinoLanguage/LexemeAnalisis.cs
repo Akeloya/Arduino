@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ArduinoLanguage.Enums;
 using ArduinoLanguage.Errors;
@@ -164,26 +165,30 @@ namespace ArduinoLanguage
 
         private bool ProcesshDivisionSymbol()
         {
-            if (analysState.Peek() == LexemAnalisisState.LexemAnalys)
+            LexemAnalisisState state = analysState.Peek();
+            if (state == LexemAnalisisState.LexemAnalys)
             {
                 analysState.Push(LexemAnalisisState.Division);
                 return true;
             }
             //Строчный комментарий
-            if (analysState.Peek() == LexemAnalisisState.Division)
+            if (state == LexemAnalisisState.Division)
             {
                 analysState.Pop();
+                state = analysState.Peek();
+                if (state == LexemAnalisisState.BlockComment || state == LexemAnalisisState.LineComment) //не интересуют символы косой черты в комментариях
+                    return true;
                 int endLineIndex = _code.IndexOf('\n', _position);
                 if (endLineIndex == -1) //дошли до конца, а перевода строки нет
                     endLineIndex = _codeLen;
-                _lexeme += _code.Substring(_position + 1, _codeLen - _position); //весь комментарий в лексему
+                _lexeme += _code.Substring(_position + 1, endLineIndex - _position - 1); //весь комментарий в лексему
                 _position = endLineIndex;
                 _lexemeList.AddLast(new Lexeme(_lexeme, LexemeTypes.SingleLineComment, _codeLine));
                 _codeLine++;
                 return true;
             }
             //Если ранее было число - формируем 2 лексемы
-            if (analysState.Peek() == LexemAnalisisState.Digit || analysState.Peek() == LexemAnalisisState.Decimal)
+            if (state == LexemAnalisisState.Digit || state == LexemAnalisisState.Decimal)
             {
                 LexemeTypes type = LexemeTypes.Underfined;
                 if (analysState.Peek() == LexemAnalisisState.Decimal)
@@ -202,18 +207,34 @@ namespace ArduinoLanguage
                 _lexemeList.AddLast(new Lexeme("/", LexemeTypes.Division, _codeLine));
                 return true;
             }
+            if(state == LexemAnalisisState.BlockComment || state == LexemAnalisisState.LineComment)
+            {
+                return true;
+            }
             return false;
         }
         private bool ProcessMultiplyingSymbol()
         {
-            LexemAnalisisState state = analysState.Pop();
+            LexemAnalisisState state = analysState.Peek();
             bool processSecceed = false;
             switch(state)
             {
                 //Если предыдущий символ был "/", то это блоковый комментарий
                 case LexemAnalisisState.Division:
                     analysState.Pop();
-                    analysState.Push(LexemAnalisisState.BlockComment);
+                    //Ищем конец блокового комментария
+                    int endLineIndex = _code.IndexOf("*/", _position);
+                    if (endLineIndex == -1) //дошли до конца, а комментарий не закрыт!
+                    {
+                        endLineIndex = _codeLen;
+                        throw new NotImplementedException("Не реализована ошибка незакрытого комментария");
+                    }
+                    _lexeme += _code.Substring(_position + 1, endLineIndex - _position - 1); //весь комментарий в лексему
+                    _position = endLineIndex;
+                    //Посчитаем переводы строк:
+                    _codeLine += _lexeme.Where(x => x == '\n').Count();
+                    //Затираем лексему, т.к. комментарий нас не интересует совсем
+                    _lexeme = null;
                     processSecceed = true;
                     break;
                 //Если мы формируем строку или строчный комментарий - то добавляем лишь очередной символ игнорируя значение
@@ -222,37 +243,38 @@ namespace ArduinoLanguage
                     processSecceed = true;
                     break;
                 case LexemAnalisisState.BlockComment:
-                    analysState.Push(state); //Вернем для сохранности главн
-                    state = LexemAnalisisState.Multiplying;
+                    analysState.Push(LexemAnalisisState.Multiplying); //Возможно следующим символом будет закрыт блочный комментарий
                     processSecceed = true;
                     break;
             }
-            if (processSecceed)
-                analysState.Push(state);
             return processSecceed;
         }
 
         private bool ProcessNewLine(char c)
         {
             LexemAnalisisState state = analysState.Peek();
-            //Если формируется блоковый комментарий, просто увеличиваем счетчик новых строк
-            if (state == LexemAnalisisState.BlockComment)
+            switch(state)
             {
-                if(c == '\n')
+                case LexemAnalisisState.BlockComment:
+                    //Если формируется блоковый комментарий, просто увеличиваем счетчик новых строк
+                    if (c == '\n')
+                        _codeLine++;
+                    return true;
+                case LexemAnalisisState.LexemAnalys:
+                    if (_lexeme.Length > 1)
+                        _lexeme = _lexeme.Substring(0, _lexeme.Length - 1);
+                    else
+                        _lexeme = null;
                     _codeLine++;
-                return true;
-            }
-            //Если формировали строковую константу и был перевод строки, формируем лексему, увеличиваем счетчик и завершаем обработку
-            //А так же добавляем ошибку
-            if(state == LexemAnalisisState.String)
-            {
-                if (c == '\n')
-                {
+                    return false;
+                case LexemAnalisisState.String:
+                    //Если формировали строковую константу и был перевод строки, формируем лексему, увеличиваем счетчик и завершаем обработку
+                    //А так же добавляем ошибку
                     _errors.Add(new StringStartError(_codeLine));
                     _codeLine++;
-                }
-                return true;
+                    return true;
             }
+            
             return false;
         }
         private bool ProcessLetter()
