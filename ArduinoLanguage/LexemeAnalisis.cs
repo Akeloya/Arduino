@@ -75,85 +75,7 @@ namespace ArduinoLanguage
                 {
                     char c = _code[_position];
                     _lexeme += c;
-                    if(c == '/') //Комментарий или знак деления
-                    {
-                        if (ProcesshDivisionSymbol())
-                            continue;
-                    }
-
-                    if(c == '*')
-                    {
-                        if (ProcessMultiplyingSymbol())
-                            continue;
-                    }
-                    if (c == '\n' || c == '\r')
-                        if (ProcessNewLine(c))
-                            continue;
-                    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-                        if (ProcessLetter())
-                            continue;
-                    if ((c >= '0' && c <= '9'))
-                        if (ProcessDigit())
-                            continue;
-                    ProcessChars(c);
-                    /*
-                    if (c != '(' && c != ')' && c != ';' && c != '+' && c != '-' && c != '=' && c != '>' && c != '<' && c != '*' && c != '/' && c != ',' && c != '{' && c != '}' && c != '!' && c != '|' && c != '&' && c != ' ' && c != '\n' && c != '\t')
-                    {
-                        if (c == '"' && !stringState)
-                            stringState = true;
-                        else
-                            if (stringState && c == '"')
-                            stringState = false;
-                        if (c == '\'')
-                        {
-                            if (_lexeme[0] != '\'')
-                                throw new StringError(_codeLine);
-
-                            _lexeme += _code[_position++];
-                            if (!(_lexeme[1] >= 'a' && _lexeme[0] <= 'z') && !(_lexeme[1] >= 'A' && _lexeme[0] <= 'Z') && !(_lexeme[1] >= '0' && _lexeme[1] <= '9'))
-                            {
-                                if (_lexeme[1] != '\'')
-                                    throw new StringEndError(_codeLine);
-                                else
-                                    throw new CharConstEmpty(_codeLine);
-                            }
-                            else
-                                _lexeme += _code[_position++];
-                            if (_lexeme[2] != '\'')
-                                throw new CharConstNotClosed(_codeLine);
-                        }
-                    }
-                    else
-                    {
-                        if (!stringState)
-                        {
-                            if (_lexeme[0] != 0)
-                            {
-                                LexemeTypes type = GetLexemType(_lexeme, _codeLine, out IEnumerable<Error> subErrors);
-                                Lexeme newLexem = new Lexeme(_lexeme, type, _codeLine);
-                                _lexemeList.AddLast(newLexem);
-                                _lexeme = null;
-                            }
-                            if (c == '\n')
-                                _codeLine++;
-                            _lexeme = null;
-                            _position = 0;
-                            if (c != ' ' && c != '\n' && c != '\t')
-                            {
-                                string oneCharLexem = "" + c;
-                                LexemeTypes type = GetLexemType(oneCharLexem, _codeLine, out IEnumerable<Error> subErrors);
-                                _errors.AddRange(subErrors);
-                                Lexeme newlexem = new Lexeme(oneCharLexem, type, _codeLine);
-                                newlexem.GetData();
-                                _lexemeList.AddLast(newlexem);
-                                _lexeme = string.Empty;
-                            }
-                        }
-                        else
-                        {
-                            _lexeme += c;
-                        }
-                    }*/
+                    ProcessSymbol(c);
                 }
             }
             catch (Error err)
@@ -161,6 +83,28 @@ namespace ArduinoLanguage
                 _errors.Add(err);
             }
             return _errors;
+        }
+        private void ProcessSymbol(char c)
+        {
+            if (c == '/') //Комментарий или знак деления
+                if (ProcesshDivisionSymbol())
+                    return;
+
+            if (c == '*')
+            {
+                if (ProcessMultiplyingSymbol())
+                    return;
+            }
+            if (c == '\n' || c == '\r')
+                if (ProcessNewLine(c))
+                    return;
+            if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+                if (ProcessLetter())
+                    return;
+            if ((c >= '0' && c <= '9'))
+                if (ProcessDigit())
+                    return;
+            ProcessChars(c);
         }
 
         private bool ProcesshDivisionSymbol()
@@ -333,121 +277,6 @@ namespace ArduinoLanguage
                 }
             }
             return result;
-        }
-
-        /// <summary>
-        /// Lexem type definition
-        /// </summary>
-        /// <param name="lexem">String lexem</param>
-        /// <param name="codeLine">Code line position</param>
-        /// <param name="errors">Out error list of lexem type definition</param>
-        /// <returns>LexemTypes value</returns>
-        private LexemeTypes GetLexemType(string lexem, int codeLine, out IEnumerable<Error> errors)
-        {
-            LexemeTypes type = LexemeTypes.Underfined;
-            List<Error> errorList = new List<Error>();
-            if (lexem.Length == 1)
-            {
-                if (!TryGetLexemeCharType(lexem[0], out type))
-                    errorList.Add(new StringError(codeLine));
-            }
-            else
-            {
-                //checks for char const
-                if (lexem[0] == '\'')
-                {
-                    if (lexem.Length != 3 || lexem[2] != '\'')
-                    {
-                        errorList.Add(new StringError(codeLine));
-                        type = LexemeTypes.Char;
-                    }
-                    else
-                        type = LexemeTypes.Char;
-                }
-                else
-                {
-                    //checks for string const line "some text"
-                    if (lexem[0] == '"')
-                    {
-                        if (lexem[lexem.Length - 1] != '"')
-                            errorList.Add(new StringEndError(codeLine));
-                        else
-                            type = LexemeTypes.String;
-                    }
-                    else
-                    {
-                        //checks for reserved word
-                        if (ReservedWords.Contains(lexem))
-                            type = LexemeTypes.ReservedWord;
-                        else
-                        {
-                            type = LexemeTypes.Identificator;
-                            //checks for correct identificator value
-                            if ((lexem[0] >= 'a' && lexem[0] <= 'z') || (lexem[0] >= 'A' && lexem[0] <= 'Z'))
-                            {
-                                int k = 1;
-                                bool l = false;
-                                while (k < lexem.Length)
-                                {
-                                    if ((lexem[k] >= 'a' && lexem[k] <= 'z') || (lexem[k] >= 'A' && lexem[k] <= 'Z') || (lexem[0] >= '0' && lexem[0] <= '9'))
-                                        k++;
-                                    else
-                                    {
-                                        k++;
-                                        if (!l)
-                                            l = true;
-                                        else
-                                        {
-                                            errorList.Add(new StringError(codeLine));
-                                            break;
-                                        }
-                                    }
-                                }
-
-                            }
-                            else
-                            {
-                                //checks for digit value
-                                if (lexem[0] >= '0' && lexem[0] <= '9')
-                                {
-                                    int k = 0;
-                                    int decimalPointCounts = 0;
-                                    while (k < lexem.Length)
-                                    {
-                                        if (lexem[k] >= '0' && lexem[k] <= '9')
-                                            k++;
-                                        else
-                                            if (lexem[k] == '.' && k < lexem.Length - 1)
-                                        {
-                                            k++;
-                                            decimalPointCounts = 1;
-                                        }
-                                        else
-                                        {
-                                            errorList.Add(new StringError(codeLine));
-                                            break;
-                                        }
-                                    }
-                                    switch (decimalPointCounts)
-                                    {
-                                        case 0:
-                                            type = LexemeTypes.Integer;
-                                            break;
-                                        case 1:
-                                            type = LexemeTypes.Integer;
-                                            break;
-                                        default:
-                                            errorList.Add(new StringError(codeLine));
-                                            break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            errors = errorList;
-            return type;
-        }
+        }      
     }
 }
