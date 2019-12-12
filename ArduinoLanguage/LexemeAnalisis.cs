@@ -222,7 +222,8 @@ namespace ArduinoLanguage
                     processSecceed = true;
                     break;
                 case LexemAnalisisState.BlockComment:
-                    analysState.Push(LexemAnalisisState.Multiplying);
+                    analysState.Push(state); //Вернем для сохранности главн
+                    state = LexemAnalisisState.Multiplying;
                     processSecceed = true;
                     break;
             }
