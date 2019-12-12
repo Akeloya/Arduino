@@ -5,8 +5,22 @@ using ArduinoLanguage.Errors;
 
 namespace ArduinoLanguage
 {
+    /// <summary>
+    /// Анализ кода и формирование списка лексем для синтаксического анализа
+    /// </summary>
     public class LexemeAnalisis
     {
+        private readonly Stack<LexemAnalisisState> analysState = new Stack<LexemAnalisisState>();
+        private readonly LinkedList<Lexeme> _lexemeList = new LinkedList<Lexeme>();
+        private readonly List<Error> _errors = new List<Error>();
+        private readonly string _code;
+        private readonly int _codeLen;
+        private int _position;
+        private int _codeLine;
+        private string _lexeme;
+
+        public LinkedList<Lexeme> LexemeList => _lexemeList;
+
         public static readonly string[] ReservedWords = { "int", "double", "void", "char", "return", "if", "while", "else", "do", "switch", "case", "continue", "break" };
         private static Dictionary<char, LexemeTypes> CharLexemTypes = new Dictionary<char, LexemeTypes>()
         {
@@ -28,33 +42,60 @@ namespace ArduinoLanguage
             { '|', LexemeTypes.BinaryOr },
             { '&', LexemeTypes.BinaryAnd }
         };
+
+        public LexemeAnalisis(string code)
+        {
+            _code = code;
+            _codeLen = _code.Length;
+        }
         /// <summary>
         /// Lexical code analysis, finde lexemes and error list building
         /// </summary>
-        /// <param name="code">Parsed code</param>
-        /// <param name="errors">List of warnings and errors derived from lexical analysis</param>
-        /// <returns>Founden lexeme list</returns>
-        public LinkedList<Lexeme> Analyse(string code, out IEnumerable<Error> errors)
+        /// <returns>Collection or errors, warnings in code</returns>
+        public IEnumerable<Error> Analyse()
         {
-            List<Error> errorList = new List<Error>();
-            LinkedList<Lexeme> lexemList = new LinkedList<Lexeme>();
+            _errors.Clear();
+            _lexemeList.Clear();
 
-            if (string.IsNullOrEmpty(code))
+            if (string.IsNullOrEmpty(_code))
             {
-                errorList.Add(new EmptyFileError());
-                errors = errorList;
-                return lexemList;
+                _errors.Add(new EmptyFileError());
+                return _errors;
             }
-            int codeLen = code.Length;
-            int codeLine = 1; //Code line counter
-            string lexem = null; //Current pocess lexem
-            bool stringState = false; //String build process state
+
+            _lexeme = null;
+            _codeLine = 1;
+            _lexemeList.Clear();
+            bool stringState = false;
+            analysState.Push(LexemAnalisisState.LexemAnalys);
             try
             {
-                for (var i = 0; i < codeLen; i++)
+                for (_position = 0; _position < _codeLen; _position++)
                 {
-                    char c = code[i];
-                    lexem += c;
+                    char c = _code[_position];
+                    _lexeme += c;
+                    if(c == '/') //Комментарий или знак деления
+                    {
+                        if (ProcesshDivisionSymbol())
+                            continue;
+                    }
+
+                    if(c == '*')
+                    {
+                        if (ProcessMultiplyingSymbol())
+                            continue;
+                    }
+                    if (c == '\n' || c == '\r')
+                        if (ProcessNewLine(c))
+                            continue;
+                    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+                        if (ProcessLetter())
+                            continue;
+                    if ((c >= '0' && c <= '9'))
+                        if (ProcessDigit())
+                            continue;
+                    ProcessChars(c);
+                    /*
                     if (c != '(' && c != ')' && c != ';' && c != '+' && c != '-' && c != '=' && c != '>' && c != '<' && c != '*' && c != '/' && c != ',' && c != '{' && c != '}' && c != '!' && c != '|' && c != '&' && c != ' ' && c != '\n' && c != '\t')
                     {
                         if (c == '"' && !stringState)
@@ -64,66 +105,194 @@ namespace ArduinoLanguage
                             stringState = false;
                         if (c == '\'')
                         {
-                            if (lexem[0] != '\'')
-                                throw new StringError(codeLine);
+                            if (_lexeme[0] != '\'')
+                                throw new StringError(_codeLine);
 
-                            lexem += code[i++];
-                            if (!(lexem[1] >= 'a' && lexem[0] <= 'z') && !(lexem[1] >= 'A' && lexem[0] <= 'Z') && !(lexem[1] >= '0' && lexem[1] <= '9'))
+                            _lexeme += _code[_position++];
+                            if (!(_lexeme[1] >= 'a' && _lexeme[0] <= 'z') && !(_lexeme[1] >= 'A' && _lexeme[0] <= 'Z') && !(_lexeme[1] >= '0' && _lexeme[1] <= '9'))
                             {
-                                if (lexem[1] != '\'')
-                                    throw new StringEndError(codeLine);
+                                if (_lexeme[1] != '\'')
+                                    throw new StringEndError(_codeLine);
                                 else
-                                    throw new CharConstEmpty(codeLine);
+                                    throw new CharConstEmpty(_codeLine);
                             }
                             else
-                                lexem += code[i++];
-                            if (lexem[2] != '\'')
-                                throw new CharConstNotClosed(codeLine);
+                                _lexeme += _code[_position++];
+                            if (_lexeme[2] != '\'')
+                                throw new CharConstNotClosed(_codeLine);
                         }
                     }
                     else
                     {
                         if (!stringState)
                         {
-                            if (lexem[0] != 0)
+                            if (_lexeme[0] != 0)
                             {
-                                LexemeTypes type = GetLexemType(lexem, codeLen, out IEnumerable<Error> subErrors);
-                                Lexeme newLexem = new Lexeme(lexem, type, codeLine);
-                                lexemList.AddLast(newLexem);
-                                lexem = null;
+                                LexemeTypes type = GetLexemType(_lexeme, _codeLine, out IEnumerable<Error> subErrors);
+                                Lexeme newLexem = new Lexeme(_lexeme, type, _codeLine);
+                                _lexemeList.AddLast(newLexem);
+                                _lexeme = null;
                             }
                             if (c == '\n')
-                                codeLine++;
-                            lexem = null;
-                            i = 0;
+                                _codeLine++;
+                            _lexeme = null;
+                            _position = 0;
                             if (c != ' ' && c != '\n' && c != '\t')
                             {
                                 string oneCharLexem = "" + c;
-                                LexemeTypes type = GetLexemType(oneCharLexem, codeLine, out IEnumerable<Error> subErrors);
-                                errorList.AddRange(subErrors);
-                                Lexeme newlexem = new Lexeme(oneCharLexem, type, codeLine);
+                                LexemeTypes type = GetLexemType(oneCharLexem, _codeLine, out IEnumerable<Error> subErrors);
+                                _errors.AddRange(subErrors);
+                                Lexeme newlexem = new Lexeme(oneCharLexem, type, _codeLine);
                                 newlexem.GetData();
-                                lexemList.AddLast(newlexem);
-                                lexem = string.Empty;
+                                _lexemeList.AddLast(newlexem);
+                                _lexeme = string.Empty;
                             }
                         }
                         else
                         {
-                            lexem += c;
+                            _lexeme += c;
                         }
-                    }
+                    }*/
                 }
             }
             catch (Error err)
             {
-                errorList.Add(err);
+                _errors.Add(err);
             }
-            errors = errorList;
-            return lexemList;
+            return _errors;
+        }
+
+        private bool ProcesshDivisionSymbol()
+        {
+            if (analysState.Peek() == LexemAnalisisState.LexemAnalys)
+            {
+                analysState.Push(LexemAnalisisState.Division);
+                return true;
+            }
+            //Строчный комментарий
+            if (analysState.Peek() == LexemAnalisisState.Division)
+            {
+                analysState.Pop();
+                int endLineIndex = _code.IndexOf('\n', _position);
+                if (endLineIndex == -1) //дошли до конца, а перевода строки нет
+                    endLineIndex = _codeLen;
+                _lexeme += _code.Substring(_position + 1, _codeLen - _position); //весь комментарий в лексему
+                _position = endLineIndex;
+                _lexemeList.AddLast(new Lexeme(_lexeme, LexemeTypes.SingleLineComment, _codeLine));
+                _codeLine++;
+                return true;
+            }
+            //Если ранее было число - формируем 2 лексемы
+            if (analysState.Peek() == LexemAnalisisState.Digit || analysState.Peek() == LexemAnalisisState.Decimal)
+            {
+                LexemeTypes type = LexemeTypes.Underfined;
+                if (analysState.Peek() == LexemAnalisisState.Decimal)
+                {
+                    analysState.Pop();
+                    type = LexemeTypes.Double;
+                }
+                if (analysState.Peek() == LexemAnalisisState.Digit)
+                {
+                    analysState.Pop();
+                    if(type != LexemeTypes.Double)
+                        type = LexemeTypes.Integer;
+                    
+                }
+                _lexemeList.AddLast(new Lexeme(_lexeme, type, _codeLine));
+                _lexemeList.AddLast(new Lexeme("/", LexemeTypes.Division, _codeLine));
+                return true;
+            }
+            return false;
+        }
+        private bool ProcessMultiplyingSymbol()
+        {
+            LexemAnalisisState state = analysState.Pop();
+            bool processSecceed = false;
+            switch(state)
+            {
+                //Если предыдущий символ был "/", то это блоковый комментарий
+                case LexemAnalisisState.Division:
+                    analysState.Pop();
+                    analysState.Push(LexemAnalisisState.BlockComment);
+                    processSecceed = true;
+                    break;
+                //Если мы формируем строку или строчный комментарий - то добавляем лишь очередной символ игнорируя значение
+                case LexemAnalisisState.String:
+                case LexemAnalisisState.LineComment:
+                    processSecceed = true;
+                    break;
+                case LexemAnalisisState.BlockComment:
+                    analysState.Push(LexemAnalisisState.Multiplying);
+                    processSecceed = true;
+                    break;
+            }
+            if (processSecceed)
+                analysState.Push(state);
+            return processSecceed;
+        }
+
+        private bool ProcessNewLine(char c)
+        {
+            LexemAnalisisState state = analysState.Peek();
+            //Если формируется блоковый комментарий, просто увеличиваем счетчик новых строк
+            if (state == LexemAnalisisState.BlockComment)
+            {
+                if(c == '\n')
+                    _codeLine++;
+                return true;
+            }
+            //Если формировали строковую константу и был перевод строки, формируем лексему, увеличиваем счетчик и завершаем обработку
+            //А так же добавляем ошибку
+            if(state == LexemAnalisisState.String)
+            {
+                if (c == '\n')
+                {
+                    _errors.Add(new StringStartError(_codeLine));
+                    _codeLine++;
+                }
+                return true;
+            }
+            return false;
+        }
+        private bool ProcessLetter()
+        {
+            LexemAnalisisState state = analysState.Peek();
+            switch(state)
+            {
+                //Если комментарий или строка, добавляем символ к лексеме без дальнейшей обработки
+                case LexemAnalisisState.BlockComment:
+                case LexemAnalisisState.String:
+                case LexemAnalisisState.LineComment:
+                    return true;
+            }
+            return false;
+        }
+        private bool ProcessDigit()
+        {
+            LexemAnalisisState state = analysState.Peek();
+            switch(state)
+            {
+                //Если комментарий, или число добавляем число к лексеме и обрабатываем дальше
+                case LexemAnalisisState.BlockComment:
+                case LexemAnalisisState.Digit:
+                case LexemAnalisisState.LineComment:
+                case LexemAnalisisState.Decimal:
+                    return true;
+            }
+            return false;
+        }
+        private void ProcessChars(char c)
+        {
+            LexemAnalisisState state = analysState.Peek();
+            switch(state)
+            {
+                case LexemAnalisisState.BlockComment:
+                case LexemAnalisisState.LineComment:
+                    return;
+            }
         }
         private bool TryGetLexemeCharType(char c, out LexemeTypes type)
         {
-            List<Error> errorList = new List<Error>();
             bool result = true; //we can get one place with error, there will be false
             if (CharLexemTypes.ContainsKey(c))
                 type = CharLexemTypes[c];

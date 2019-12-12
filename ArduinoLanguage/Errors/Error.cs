@@ -6,7 +6,6 @@ namespace ArduinoLanguage.Errors
     /// <summary>
     /// Definition Error
     /// </summary>
-    [Serializable]
     public abstract class Error : Exception
     {
         /// <summary>
@@ -34,6 +33,6 @@ namespace ArduinoLanguage.Errors
         public override string ToString()
         {
             return Resource.ResourceManager.GetString(Type.ToString(), CultureInfo.CurrentCulture);
-        }
+        }        
     }
 }

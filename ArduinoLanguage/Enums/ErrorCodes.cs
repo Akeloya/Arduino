@@ -8,9 +8,9 @@ namespace ArduinoLanguage.Enums
         NoLoopFunc = 2,
         StringError = 3,
         StringEndError = 4,
-        StringNotClosed = 5,        
-        CharConstEmpty = 6,
-        CharConstNotClosed = 7,
-
+        StringConstError = 5,
+        StringNotClosed = 6,        
+        CharConstEmpty = 7,
+        CharConstNotClosed = 8 
     }
 }
