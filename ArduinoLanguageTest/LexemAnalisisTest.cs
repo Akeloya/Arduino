@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using ArduinoLanguage;
 using ArduinoLanguage.Errors;
@@ -21,6 +22,7 @@ namespace ArduinoLanguageTest
                 Assert.Empty(errors);
                 foreach(Lexeme lexem in analisis.LexemeList)
                 {
+                    Debug.WriteLine(lexem.LexemValue);
                     Assert.NotNull(lexem.LexemValue);
                     Assert.NotEqual(ArduinoLanguage.Enums.LexemeTypes.Underfined, lexem.Type);
                     Assert.NotEqual(0, lexem.Line);

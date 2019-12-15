@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArduinoEmulator"
         xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
+        xmlns:res="clr-namespace:ArduinoEmulator.Resources"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="{x:Static res:Resource.MainWindowTitle}" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"></RowDefinition>
@@ -14,10 +15,22 @@
             <RowDefinition Height="25"></RowDefinition>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
-            <MenuItem Header="File"></MenuItem>
-            <MenuItem Header="Edit"></MenuItem>
-            <MenuItem Header="Help">
-                <MenuItem Header="About"></MenuItem>
+            <MenuItem Header="{x:Static res:Resource.MenuItemFile}">
+                <MenuItem Header="{x:Static res:Resource.MenuItemNew}"></MenuItem>
+                <MenuItem Header="{x:Static res:Resource.MenuItemSave}"></MenuItem>
+                <MenuItem Header="{x:Static res:Resource.MenuItemSaveAs}"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="{x:Static res:Resource.MenuItemRecent}"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="{x:Static res:Resource.MenuItemClose}"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="{x:Static res:Resource.MenuItemEdit}"></MenuItem>
+            <MenuItem Header="{x:Static res:Resource.MenuItemView}">
+                <MenuItem Header="{x:Static res:Resource.MenuItemViewDisplay}"></MenuItem>
+                <MenuItem Header="{x:Static res:Resource.MenuItemViewError}"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="{x:Static res:Resource.MenuItemHelp}">
+                <MenuItem Header="{x:Static res:Resource.MenuItemAbout}"></MenuItem>
             </MenuItem>
         </Menu>
         <xcad:DockingManager Grid.Row="1">

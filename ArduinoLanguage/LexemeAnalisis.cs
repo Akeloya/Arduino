@@ -127,7 +127,8 @@ namespace ArduinoLanguage
                     endLineIndex = _codeLen;
                 _lexeme += _code.Substring(_position + 1, endLineIndex - _position - 1); //весь комментарий в лексему
                 _position = endLineIndex;
-                _lexemeList.AddLast(new Lexeme(_lexeme, LexemeTypes.SingleLineComment, _codeLine));
+                //_lexemeList.AddLast(new Lexeme(_lexeme, LexemeTypes.SingleLineComment, _codeLine));
+                _lexeme = null;
                 _codeLine++;
                 return true;
             }
@@ -149,6 +150,7 @@ namespace ArduinoLanguage
                 }
                 _lexemeList.AddLast(new Lexeme(_lexeme, type, _codeLine));
                 _lexemeList.AddLast(new Lexeme("/", LexemeTypes.Division, _codeLine));
+                _lexeme = null;
                 return true;
             }
             if(state == LexemAnalisisState.BlockComment || state == LexemAnalisisState.LineComment)
@@ -256,6 +258,17 @@ namespace ArduinoLanguage
                 case LexemAnalisisState.BlockComment:
                 case LexemAnalisisState.LineComment:
                     return;
+                default:
+                    if(c == ' ')
+                    {
+                        if (_lexeme.Length > 1)
+                        {
+                            _lexeme = _lexeme.Substring(0, _lexeme.Length - 1);
+                            _lexemeList.AddLast(new Lexeme(_lexeme, LexemeTypes.String, _codeLine));
+                            _lexeme = null;
+                        }
+                    }
+                    break;
             }
         }
         private bool TryGetLexemeCharType(char c, out LexemeTypes type)
