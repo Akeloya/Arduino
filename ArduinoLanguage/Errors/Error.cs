@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArduinoLanguage.Resources;
+using System;
 using System.Globalization;
 
 namespace ArduinoLanguage.Errors

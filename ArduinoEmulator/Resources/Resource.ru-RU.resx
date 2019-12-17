@@ -123,14 +123,20 @@
   <data name="MenuItemAbout" xml:space="preserve">
     <value>О приложении</value>
   </data>
+  <data name="MenuItemBuild" xml:space="preserve">
+    <value>Построить</value>
+  </data>
   <data name="MenuItemClose" xml:space="preserve">
     <value>Закрыть</value>
+  </data>
+  <data name="MenuItemDebugging" xml:space="preserve">
+    <value>Отладка</value>
   </data>
   <data name="MenuItemEdit" xml:space="preserve">
     <value>Правка</value>
   </data>
   <data name="MenuItemFile" xml:space="preserve">
-    <value>Файл</value>
+    <value>&amp;Файл</value>
   </data>
   <data name="MenuItemHelp" xml:space="preserve">
     <value>Справка</value>

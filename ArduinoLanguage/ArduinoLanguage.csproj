@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Update="Resource.Designer.cs">
+    <Compile Update="Resources\Resource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resource.resx</DependentUpon>
@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resource.resx">
+    <EmbeddedResource Update="Resources\Resource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>

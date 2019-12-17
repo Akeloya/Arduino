@@ -6,11 +6,16 @@
         xmlns:local="clr-namespace:ArduinoEmulator"
         xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:res="clr-namespace:ArduinoEmulator.Resources"
+        xmlns:cmd="clr-namespace:ArduinoEmulator.Commands"
         mc:Ignorable="d"
         Title="{x:Static res:Resource.MainWindowTitle}" Height="450" Width="800">
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static cmd:BuildMenuCommands.Build}" Executed="Build_Executed"></CommandBinding>
+    </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="25"></RowDefinition>
         </Grid.RowDefinitions>
@@ -29,13 +34,29 @@
                 <MenuItem Header="{x:Static res:Resource.MenuItemViewDisplay}"></MenuItem>
                 <MenuItem Header="{x:Static res:Resource.MenuItemViewError}"></MenuItem>
             </MenuItem>
+            <MenuItem Header="{x:Static res:Resource.MenuItemDebugging}">
+                <MenuItem Header="{x:Static res:Resource.MenuItemBuild}" Command="{x:Static cmd:BuildMenuCommands.Build}"></MenuItem>
+            </MenuItem>
             <MenuItem Header="{x:Static res:Resource.MenuItemHelp}">
                 <MenuItem Header="{x:Static res:Resource.MenuItemAbout}"></MenuItem>
             </MenuItem>
         </Menu>
-        <xcad:DockingManager Grid.Row="1">
-            
+        <ToolBarPanel Grid.Row="1">
+            <ToolBar Width="50">
+                <Button Width="23" Height="23" Command="{x:Static cmd:BuildMenuCommands.Build}"></Button>
+            </ToolBar>
+        </ToolBarPanel>
+        <xcad:DockingManager Grid.Row="2">
+            <xcad:LayoutRoot>
+                <xcad:LayoutPanel Orientation="Horizontal">
+                    <xcad:LayoutDocumentPane>
+                        <xcad:LayoutDocument Title="Display">
+                            <TextBox Name="rtbDisplay"></TextBox>
+                        </xcad:LayoutDocument>
+                    </xcad:LayoutDocumentPane>
+                </xcad:LayoutPanel>
+            </xcad:LayoutRoot>
         </xcad:DockingManager>
-        <StatusBar Grid.Row="2"></StatusBar>
+        <StatusBar Grid.Row="3"></StatusBar>
     </Grid>
 </Window>

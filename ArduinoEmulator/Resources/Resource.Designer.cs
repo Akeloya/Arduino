@@ -79,11 +79,29 @@ namespace ArduinoEmulator.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Build.
+        /// </summary>
+        public static string MenuItemBuild {
+            get {
+                return ResourceManager.GetString("MenuItemBuild", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Close.
         /// </summary>
         public static string MenuItemClose {
             get {
                 return ResourceManager.GetString("MenuItemClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Debugging.
+        /// </summary>
+        public static string MenuItemDebugging {
+            get {
+                return ResourceManager.GetString("MenuItemDebugging", resourceCulture);
             }
         }
         
