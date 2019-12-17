@@ -136,7 +136,7 @@
     <value>Правка</value>
   </data>
   <data name="MenuItemFile" xml:space="preserve">
-    <value>&amp;Файл</value>
+    <value>Файл</value>
   </data>
   <data name="MenuItemHelp" xml:space="preserve">
     <value>Справка</value>

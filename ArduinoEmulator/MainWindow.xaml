@@ -41,7 +41,7 @@
                 <MenuItem Header="{x:Static res:Resource.MenuItemAbout}"></MenuItem>
             </MenuItem>
         </Menu>
-        <ToolBarPanel Grid.Row="1">
+        <ToolBarPanel Grid.Row="1" AllowDrop="true" >
             <ToolBar Width="50">
                 <Button Width="23" Height="23" Command="{x:Static cmd:BuildMenuCommands.Build}"></Button>
             </ToolBar>

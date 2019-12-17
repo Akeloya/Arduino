@@ -11,7 +11,7 @@ namespace ArduinoLanguage
     /// </summary>
     public class LexemeAnalisis
     {
-        private readonly Stack<LexemAnalisisState> analysState = new Stack<LexemAnalisisState>();
+        private readonly Stack<LexemAnalisisState> _analysState = new Stack<LexemAnalisisState>();
         private readonly LinkedList<Lexeme> _lexemeList = new LinkedList<Lexeme>();
         private readonly List<Error> _errors = new List<Error>();
         private readonly string _code;
@@ -64,18 +64,30 @@ namespace ArduinoLanguage
                 return _errors;
             }
 
-            _lexeme = null;
+            string lexeme = null;
             _codeLine = 1;
             _lexemeList.Clear();
             bool stringState = false;
-            analysState.Push(LexemAnalisisState.LexemAnalys);
+            _analysState.Push(LexemAnalisisState.LexemAnalys);
             try
             {
                 for (_position = 0; _position < _codeLen; _position++)
                 {
                     char c = _code[_position];
-                    _lexeme += c;
-                    ProcessSymbol(c);
+                    if (ProcessSingleCharLexem(c, lexeme, out lexeme))
+                    {
+                        if (!string.IsNullOrEmpty(lexeme))
+                        {
+                            ProcessLexem(GetLexemeType(lexeme), lexeme);
+                            lexeme = null;
+                        }
+                        continue;
+                    }
+                    lexeme += c;
+                    if(lexeme.Length == 2)// ++, --, +=, -=, /=
+                    {
+                        continue;
+                    }
                 }
             }
             catch (Error err)
@@ -84,42 +96,160 @@ namespace ArduinoLanguage
             }
             return _errors;
         }
-        private void ProcessSymbol(char c)
+        /// <summary>
+        /// Обработка односимвольных лексем и 
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        private bool ProcessSingleCharLexem(char c, string lexeme, out string lexemeModificated)
         {
-            if (c == '/') //Комментарий или знак деления
-                if (ProcesshDivisionSymbol())
-                    return;
-
-            if (c == '*')
+            bool result = false;
+            LexemeTypes lexemeType = GetSingleCharLexemeType(c);
+            switch(lexemeType)
             {
-                if (ProcessMultiplyingSymbol())
-                    return;
+                case LexemeTypes.Underfined:
+                    break;
+                case LexemeTypes.Division:
+                    if(_analysState.Peek() == LexemAnalisisState.Division)
+                    {
+                        _analysState.Pop();
+                        _analysState.Push(LexemAnalisisState.LineComment);
+                        result = true;
+                    }
+                    break;
+                case LexemeTypes.Multiplying:
+                    if (_analysState.Peek() == LexemAnalisisState.Division)
+                    {
+                        lexemeType = LexemeTypes.SingleLineComment;
+                        _analysState.Pop();
+                        _analysState.Push(LexemAnalisisState.BlockComment);
+                        result = true;
+                    }
+                    break;
+                case LexemeTypes.Assignment:
+                    {
+                        LexemAnalisisState state = _analysState.Peek();
+                        
+                        result = true;
+                    }
+                    break;
             }
-            if (c == '\n' || c == '\r')
-                if (ProcessNewLine(c))
-                    return;
-            if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-                if (ProcessLetter())
-                    return;
-            if ((c >= '0' && c <= '9'))
-                if (ProcessDigit())
-                    return;
-            ProcessChars(c);
-        }
 
+            if(result)
+            {
+                ProcessLexem(lexemeType, "" + c);
+            }
+            return result;
+        }
+        
+        private void ProcessLexem(LexemeTypes type, string lexeme)
+        {
+            _lexemeList.AddLast(new Lexeme(lexeme, type, _codeLine));
+        }
+        /// <summary>
+        /// Обработка знака '=' (равно) - присваивания
+        /// </summary>
+        /// <returns></returns>
+        private bool ProcessAssignment()
+        {
+
+        }
+        private LexemeTypes GetLexemeType(string lexeme)
+        {
+            if (lexeme == "+")
+                return LexemeTypes.Plus;
+            if (ReservedWords.Contains(lexeme))
+                return ProcessReservedWords(lexeme);
+            return LexemeTypes.Underfined;
+        }
+        private LexemeTypes ProcessReservedWords(string lexeme)
+        {
+            switch(lexeme)
+            {
+                case "int":
+                case "char":
+                    return LexemeTypes.TypeDefinition;
+                case "if":
+                    return LexemeTypes.If;
+                case "while":
+                    return LexemeTypes.While;
+            }
+            return LexemeTypes.Underfined;
+        }
+        private LexemeTypes GetSingleCharLexemeType(char c)
+        {
+            switch (c)
+            {
+                case '(':
+                    return LexemeTypes.BracketOpen;
+                case ')':
+                    return LexemeTypes.BracketClose;
+                case '\n':
+                    _codeLine++;
+                    return LexemeTypes.Underfined;
+                case '*':
+                    return LexemeTypes.Multiplying;
+                case '{':
+                    return LexemeTypes.BracketOpen;
+                case '}':
+                    return LexemeTypes.BracketClose;
+                case '/':
+                    return LexemeTypes.Division;
+                case '=':
+                    return LexemeTypes.Assignment;
+                default:
+                    return LexemeTypes.Underfined;
+            }
+        }
+        /// <summary>
+        /// Обработка строкового комментария
+        /// </summary>
+        private void ProcessLineComment()
+        {
+            _analysState.Pop();
+            LexemAnalisisState state = _analysState.Peek();
+            if (state == LexemAnalisisState.BlockComment || state == LexemAnalisisState.LineComment) //не интересуют символы косой черты в комментариях
+                return;
+            int endLineIndex = _code.IndexOf('\n', _position);
+            if (endLineIndex == -1) //дошли до конца, а перевода строки нет
+                endLineIndex = _codeLen;
+            _lexeme += _code.Substring(_position + 1, endLineIndex - _position - 1); //весь комментарий в лексему
+            _position = endLineIndex;
+            //_lexemeList.AddLast(new Lexeme(_lexeme, LexemeTypes.SingleLineComment, _codeLine));
+            _lexeme = null;
+            _codeLine++;
+        }
+        /// <summary>
+        /// Обработка блокового комментария
+        /// </summary>
+        private void ProcessBlockComment()
+        {
+            _analysState.Pop();
+            //Ищем конец блокового комментария
+            int endLineIndex = _code.IndexOf("*/", _position);
+            if (endLineIndex == -1) //дошли до конца, а комментарий не закрыт!
+            {
+                endLineIndex = _codeLen;
+                throw new NotImplementedException("Не реализована ошибка незакрытого комментария");
+            }
+            string comment = _code.Substring(_position + 1, endLineIndex - _position - 1); //весь комментарий в лексему
+            _position = endLineIndex;
+            //Посчитаем переводы строк:
+            _codeLine += comment.Where(x => x == '\n').Count();
+        }
         private bool ProcesshDivisionSymbol()
         {
-            LexemAnalisisState state = analysState.Peek();
+            LexemAnalisisState state = _analysState.Peek();
             if (state == LexemAnalisisState.LexemAnalys)
             {
-                analysState.Push(LexemAnalisisState.Division);
+                _analysState.Push(LexemAnalisisState.Division);
                 return true;
             }
             //Строчный комментарий
             if (state == LexemAnalisisState.Division)
             {
-                analysState.Pop();
-                state = analysState.Peek();
+                _analysState.Pop();
+                state = _analysState.Peek();
                 if (state == LexemAnalisisState.BlockComment || state == LexemAnalisisState.LineComment) //не интересуют символы косой черты в комментариях
                     return true;
                 int endLineIndex = _code.IndexOf('\n', _position);
@@ -136,14 +266,14 @@ namespace ArduinoLanguage
             if (state == LexemAnalisisState.Digit || state == LexemAnalisisState.Decimal)
             {
                 LexemeTypes type = LexemeTypes.Underfined;
-                if (analysState.Peek() == LexemAnalisisState.Decimal)
+                if (_analysState.Peek() == LexemAnalisisState.Decimal)
                 {
-                    analysState.Pop();
+                    _analysState.Pop();
                     type = LexemeTypes.Double;
                 }
-                if (analysState.Peek() == LexemAnalisisState.Digit)
+                if (_analysState.Peek() == LexemAnalisisState.Digit)
                 {
-                    analysState.Pop();
+                    _analysState.Pop();
                     if(type != LexemeTypes.Double)
                         type = LexemeTypes.Integer;
                     
@@ -161,13 +291,13 @@ namespace ArduinoLanguage
         }
         private bool ProcessMultiplyingSymbol()
         {
-            LexemAnalisisState state = analysState.Peek();
+            LexemAnalisisState state = _analysState.Peek();
             bool processSecceed = false;
             switch(state)
             {
                 //Если предыдущий символ был "/", то это блоковый комментарий
                 case LexemAnalisisState.Division:
-                    analysState.Pop();
+                    _analysState.Pop();
                     //Ищем конец блокового комментария
                     int endLineIndex = _code.IndexOf("*/", _position);
                     if (endLineIndex == -1) //дошли до конца, а комментарий не закрыт!
@@ -189,7 +319,7 @@ namespace ArduinoLanguage
                     processSecceed = true;
                     break;
                 case LexemAnalisisState.BlockComment:
-                    analysState.Push(LexemAnalisisState.Multiplying); //Возможно следующим символом будет закрыт блочный комментарий
+                    _analysState.Push(LexemAnalisisState.Multiplying); //Возможно следующим символом будет закрыт блочный комментарий
                     processSecceed = true;
                     break;
             }
@@ -198,7 +328,7 @@ namespace ArduinoLanguage
 
         private bool ProcessNewLine(char c)
         {
-            LexemAnalisisState state = analysState.Peek();
+            LexemAnalisisState state = _analysState.Peek();
             switch(state)
             {
                 case LexemAnalisisState.BlockComment:
@@ -225,7 +355,7 @@ namespace ArduinoLanguage
         }
         private bool ProcessLetter()
         {
-            LexemAnalisisState state = analysState.Peek();
+            LexemAnalisisState state = _analysState.Peek();
             switch(state)
             {
                 //Если комментарий или строка, добавляем символ к лексеме без дальнейшей обработки
@@ -238,7 +368,7 @@ namespace ArduinoLanguage
         }
         private bool ProcessDigit()
         {
-            LexemAnalisisState state = analysState.Peek();
+            LexemAnalisisState state = _analysState.Peek();
             switch(state)
             {
                 //Если комментарий, или число добавляем число к лексеме и обрабатываем дальше
@@ -252,7 +382,7 @@ namespace ArduinoLanguage
         }
         private void ProcessChars(char c)
         {
-            LexemAnalisisState state = analysState.Peek();
+            LexemAnalisisState state = _analysState.Peek();
             switch(state)
             {
                 case LexemAnalisisState.BlockComment:
