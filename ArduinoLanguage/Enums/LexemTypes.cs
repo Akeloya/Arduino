@@ -46,6 +46,14 @@
         BinaryOr,
         BinaryAnd,
         Identificator,
-        ReservedWord
+        ReservedWord,
+        CompoundSum,
+        CompoundDecrase,
+        CompoundMultiply,
+        CompoundDivision,
+        CompoundRemind,
+        CompoundBitAnd,
+        CompoundBitOr,
+        CompoundBitXor,
     }
 }

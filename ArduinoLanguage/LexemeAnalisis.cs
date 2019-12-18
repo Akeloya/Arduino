@@ -128,16 +128,19 @@ namespace ArduinoLanguage
                     break;
                 case LexemeTypes.Assignment:
                     {
-                        LexemAnalisisState state = _analysState.Peek();
-                        
-                        result = true;
+                        result = ProcessAssignment(c, lexeme, out lexemeModificated);
                     }
                     break;
             }
 
             if(result)
             {
+                lexemeModificated = null;
                 ProcessLexem(lexemeType, "" + c);
+            }
+            else
+            {
+                lexemeModificated = lexeme + c;
             }
             return result;
         }
@@ -150,9 +153,27 @@ namespace ArduinoLanguage
         /// Обработка знака '=' (равно) - присваивания
         /// </summary>
         /// <returns></returns>
-        private bool ProcessAssignment()
+        private bool ProcessAssignment(char c, string lexeme, out string lexemeModificated)
         {
-
+            bool result = false;
+            LexemAnalisisState state = _analysState.Peek();
+            switch(state)
+            {
+                case LexemAnalisisState.Multiplying://*=
+                case LexemAnalisisState.Division:// /=
+                case LexemAnalisisState.Summation:// +=
+                case LexemAnalisisState.Decrease:// -=
+                    _analysState.Pop();
+                    string currLex = lexeme + c;
+                    _lexemeList.AddLast(new Lexeme(currLex, GetTwoCharLexemeType(currLex), _codeLine));
+                    lexemeModificated = null;
+                    break;
+                default:
+                    result = true;
+                    lexemeModificated = lexeme;
+                    break;
+            }
+            return result;
         }
         private LexemeTypes GetLexemeType(string lexeme)
         {
@@ -197,6 +218,26 @@ namespace ArduinoLanguage
                     return LexemeTypes.Division;
                 case '=':
                     return LexemeTypes.Assignment;
+                default:
+                    return LexemeTypes.Underfined;
+            }
+        }
+        private LexemeTypes GetTwoCharLexemeType(string lexeme)
+        {
+            if (string.IsNullOrEmpty(lexeme) || lexeme.Length != 2)
+                return LexemeTypes.Underfined;
+            switch(lexeme)
+            {
+                case "+=":
+                    return LexemeTypes.CompoundSum;
+                case "-=":
+                case "*=":
+                case "/=":
+                case "%=":
+                case "^=":
+                case "|=":
+                case "&=":
+                    return LexemeTypes.CompoundBitAnd;
                 default:
                     return LexemeTypes.Underfined;
             }

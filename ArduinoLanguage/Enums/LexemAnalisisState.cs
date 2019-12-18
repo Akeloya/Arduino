@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ArduinoLanguage.Enums
+﻿namespace ArduinoLanguage.Enums
 {
     /// <summary>
     /// Состояния, необходимые для формирования лексем
@@ -18,5 +14,7 @@ namespace ArduinoLanguage.Enums
         Digit,//Появилось число 
         Decimal,//Появилась точка в числе за которой следует число
         Multiplying,//Появился знак умножения "*", за которым следует закрытие комментария или же выражение        
+        Summation,
+        Decrease,
     }
 }
