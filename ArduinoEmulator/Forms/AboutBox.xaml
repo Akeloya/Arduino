@@ -4,9 +4,38 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArduinoEmulator.Forms"
+        xmlns:res="clr-namespace:ArduinoEmulator.Resources"
+        xmlns:controls="clr-namespace:ArduinoEmulator.Controls"
         mc:Ignorable="d"
-        Title="AboutBox" Height="450" Width="800">
+        Title="{x:Static res:Resource.AboutBoxTitle}" Height="450" Width="800" ResizeMode="NoResize">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="300"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0" Grid.Row="0" Content="{x:Static res:Resource.LicenseLabel}"></Label>
+        <TextBox Grid.Row="1" 
+                 Grid.Column="0" 
+                 Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AboutBox}},Path=License}"
+                 Margin="2" 
+                 VerticalScrollBarVisibility="Auto"></TextBox>
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="2">
+            <Label Content="{x:Static res:Resource.AboutBoxAppNameLabel}" Height="25"></Label>
+            <TextBlock Height="25" Margin="20 2 2 2" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AboutBox}}, Path=AppName}"></TextBlock>
+            <Label Content="{x:Static res:Resource.AboutBoxVersionLabel}" Height="25"></Label>
+            <TextBlock Height="25" Margin="20 2 2 2" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AboutBox}}, Path=Version}"></TextBlock>
+            <Label Content="{x:Static res:Resource.AboutBoxCopyrightLabel}" Height="25"></Label>
+            <TextBlock Height="25" Margin="20 2 2 2" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AboutBox}}, Path=Copyright}"></TextBlock>
+            <Label Content="{x:Static res:Resource.AboutBoxConfigurationLabel}" Height="25"></Label>
+            <TextBlock Height="25" Margin="20 2 2 2" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AboutBox}}, Path=Configuration}"></TextBlock>
+            <Label Content="{x:Static res:Resource.AboutBoxDescriptionLabel}" Height="25"></Label>
+            <TextBox Height="100"  Margin="20 2 2 2" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AboutBox}}, Path=Description}"></TextBox>
+        </StackPanel>
+        <controls:CloseButton Grid.Column="1" Grid.Row="2" Width="90" HorizontalAlignment="Right" Margin="2"></controls:CloseButton>
     </Grid>
 </Window>

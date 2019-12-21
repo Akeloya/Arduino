@@ -55,5 +55,6 @@
         CompoundBitAnd,
         CompoundBitOr,
         CompoundBitXor,
+        Space
     }
 }

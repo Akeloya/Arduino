@@ -17,48 +17,43 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-using ArduinoEmulator.Forms;
-using ArduinoLanguage;
-using ArduinoLanguage.Errors;
-using System.Collections.Generic;
-using System.IO;
+ 
+ using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace ArduinoEmulator
+namespace ArduinoEmulator.Controls
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для CloseButton.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CloseButton : UserControl
     {
-        public MainWindow()
+        public CloseButton()
         {
             InitializeComponent();
         }
 
-        private void Build_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void Close_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            var text = File.ReadAllText(@"C:\Users\Максим\Source\Repos\Arduino\ArduinoLanguageTest\TestCodeSample\Analog read serial.ino");
-            rtbDisplay.Text = text + "\n\n-----------------------\n";
-            LexemeAnalisis analisis = new LexemeAnalisis(text);
-            IEnumerable<Error> errors = analisis.Analyse();
-            foreach (Lexeme lexem in analisis.LexemeList)
-            {
-                rtbDisplay.Text += lexem.LexemValue + "\n";
-            }
-        }
-
-        private void AboutBox_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            AboutBox box = new AboutBox();
-            box.Show();
+            CloseCanExecuteEventArgs canExec = new CloseCanExecuteEventArgs();
+            CanClose?.Invoke(this, canExec);
+            e.CanExecute = canExec.CanExecute;
         }
 
         private void Close_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            Close();
+            Closed?.Invoke(this, EventArgs.Empty);
+            Window.GetWindow(this)?.Close();
         }
+
+        public event EventHandler<CloseCanExecuteEventArgs> CanClose;
+        public event EventHandler<EventArgs> Closed;
+    }
+
+    public class CloseCanExecuteEventArgs : EventArgs
+    {
+        public bool CanExecute { get; set; } = true;
     }
 }

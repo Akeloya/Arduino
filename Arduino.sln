@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArduinoLanguage", "ArduinoL
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{595F8E8A-B48D-4434-B52B-D0FC2760BDA0}"
 	ProjectSection(SolutionItems) = preProject
+		LICENSE.md = LICENSE.md
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -14,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArduinoLanguageTest", "Ardu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArduinoCore", "ArduinoCore\ArduinoCore.csproj", "{A70EF33E-D963-4239-B5A4-BE3044D010F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArduinoEmulator", "ArduinoEmulator\ArduinoEmulator.csproj", "{9332BAD3-6627-45BA-8B52-F225B5080DEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArduinoEmulator", "ArduinoEmulator\ArduinoEmulator.csproj", "{9332BAD3-6627-45BA-8B52-F225B5080DEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

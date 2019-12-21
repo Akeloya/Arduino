@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="ArduinoEmulator.Controls.CloseButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ArduinoEmulator.Controls"
+             xmlns:res="clr-namespace:ArduinoEmulator.Resources"
+             xmlns:cmd="clr-namespace:ArduinoEmulator.Commands"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{x:Static cmd:ButtonCommands.Close}" CanExecute="Close_CanExecute" Executed="Close_Executed"></CommandBinding>
+    </UserControl.CommandBindings>
+    <Button Content="{x:Static res:Resource.CloseButton}" Command="{x:Static cmd:ButtonCommands.Close}"></Button>
+</UserControl>

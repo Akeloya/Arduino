@@ -10,7 +10,9 @@
         mc:Ignorable="d"
         Title="{x:Static res:Resource.MainWindowTitle}" Height="450" Width="800">
     <Window.CommandBindings>
-        <CommandBinding Command="{x:Static cmd:BuildMenuCommands.Build}" Executed="Build_Executed"></CommandBinding>
+        <CommandBinding Command="{x:Static cmd:MenuCommands.Build}" Executed="Build_Executed"></CommandBinding>
+        <CommandBinding Command="{x:Static cmd:MenuCommands.AboutBox}" Executed="AboutBox_Executed"></CommandBinding>
+        <CommandBinding Command="Close" Executed="Close_Executed"></CommandBinding>
     </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -22,12 +24,16 @@
         <Menu Grid.Row="0">
             <MenuItem Header="{x:Static res:Resource.MenuItemFile}">
                 <MenuItem Header="{x:Static res:Resource.MenuItemNew}"></MenuItem>
+                <MenuItem Header="{x:Static res:Resource.MenuItemOpen}"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="{x:Static res:Resource.MenuItemClose}"></MenuItem>
+                <Separator></Separator>
                 <MenuItem Header="{x:Static res:Resource.MenuItemSave}"></MenuItem>
                 <MenuItem Header="{x:Static res:Resource.MenuItemSaveAs}"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="{x:Static res:Resource.MenuItemRecent}"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="{x:Static res:Resource.MenuItemClose}"></MenuItem>
+                <MenuItem Header="{x:Static res:Resource.MenuItemExit}" Command="Close"></MenuItem>
             </MenuItem>
             <MenuItem Header="{x:Static res:Resource.MenuItemEdit}"></MenuItem>
             <MenuItem Header="{x:Static res:Resource.MenuItemView}">
@@ -35,15 +41,15 @@
                 <MenuItem Header="{x:Static res:Resource.MenuItemViewError}"></MenuItem>
             </MenuItem>
             <MenuItem Header="{x:Static res:Resource.MenuItemDebugging}">
-                <MenuItem Header="{x:Static res:Resource.MenuItemBuild}" Command="{x:Static cmd:BuildMenuCommands.Build}"></MenuItem>
+                <MenuItem Header="{x:Static res:Resource.MenuItemBuild}" Command="{x:Static cmd:MenuCommands.Build}"></MenuItem>
             </MenuItem>
             <MenuItem Header="{x:Static res:Resource.MenuItemHelp}">
-                <MenuItem Header="{x:Static res:Resource.MenuItemAbout}"></MenuItem>
+                <MenuItem Header="{x:Static res:Resource.MenuItemAbout}" Command="{x:Static cmd:MenuCommands.AboutBox}"></MenuItem>
             </MenuItem>
         </Menu>
-        <ToolBarPanel Grid.Row="1" AllowDrop="true" >
+        <ToolBarPanel Grid.Row="1" AllowDrop="true" HorizontalAlignment="Left">
             <ToolBar Width="50">
-                <Button Width="23" Height="23" Command="{x:Static cmd:BuildMenuCommands.Build}"></Button>
+                <Button Width="23" Height="23" Command="{x:Static cmd:MenuCommands.Build}"></Button>
             </ToolBar>
         </ToolBarPanel>
         <xcad:DockingManager Grid.Row="2">

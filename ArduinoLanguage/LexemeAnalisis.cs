@@ -1,4 +1,23 @@
-﻿using System;
+﻿/*
+ *  "Arduino emulator", the simple virtual emulator arduino circuit.
+ *  Copyright (C) 2019 by Maxim V. Yugov.
+ *
+ *  This file is part of "Arduino emulator".
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArduinoLanguage.Enums;
@@ -83,11 +102,8 @@ namespace ArduinoLanguage
                         }
                         continue;
                     }
-                    lexeme += c;
-                    if(lexeme.Length == 2)// ++, --, +=, -=, /=
-                    {
-                        continue;
-                    }
+
+                    ProcessStackState(lexeme, out lexeme);
                 }
             }
             catch (Error err)
@@ -110,33 +126,50 @@ namespace ArduinoLanguage
                 case LexemeTypes.Underfined:
                     break;
                 case LexemeTypes.Division:
-                    if(_analysState.Peek() == LexemAnalisisState.Division)
+                    if (_analysState.Peek() == LexemAnalisisState.Division)
                     {
                         _analysState.Pop();
                         _analysState.Push(LexemAnalisisState.LineComment);
-                        result = true;
                     }
+                    else
+                        _analysState.Push(LexemAnalisisState.Division);
                     break;
                 case LexemeTypes.Multiplying:
                     if (_analysState.Peek() == LexemAnalisisState.Division)
                     {
-                        lexemeType = LexemeTypes.SingleLineComment;
                         _analysState.Pop();
                         _analysState.Push(LexemAnalisisState.BlockComment);
-                        result = true;
                     }
+                    else
+                        _analysState.Push(LexemAnalisisState.Multiplying);
                     break;
                 case LexemeTypes.Assignment:
                     {
                         result = ProcessAssignment(c, lexeme, out lexemeModificated);
                     }
                     break;
+                case LexemeTypes.BracketOpen:
+                case LexemeTypes.BracketClose:
+                case LexemeTypes.BlockOpen:
+                case LexemeTypes.BlockClose:
+                    if (!string.IsNullOrEmpty(lexeme))
+                        ProcessLexem(GetLexemeType(lexeme), lexeme);
+                    _lexemeList.AddLast(new Lexeme("" + c, lexemeType, _codeLine));
+                    result = true;
+                    break;
+                case LexemeTypes.Space:
+                    if (!string.IsNullOrEmpty(lexeme))
+                        ProcessLexem(GetLexemeType(lexeme), lexeme);
+                    result = true;
+                    break;
+                default:
+                    throw new NotImplementedException();
+                    break;
             }
 
             if(result)
             {
                 lexemeModificated = null;
-                ProcessLexem(lexemeType, "" + c);
             }
             else
             {
@@ -218,6 +251,8 @@ namespace ArduinoLanguage
                     return LexemeTypes.Division;
                 case '=':
                     return LexemeTypes.Assignment;
+                case ' ':
+                    return LexemeTypes.Space;
                 default:
                     return LexemeTypes.Underfined;
             }
@@ -240,6 +275,23 @@ namespace ArduinoLanguage
                     return LexemeTypes.CompoundBitAnd;
                 default:
                     return LexemeTypes.Underfined;
+            }
+        }
+        private void ProcessStackState(string lexeme, out string outLexeme)
+        {
+            switch(_analysState.Peek())
+            {
+                case LexemAnalisisState.BlockComment:
+                    ProcessBlockComment();
+                    outLexeme = null;
+                    break;
+                case LexemAnalisisState.LineComment:
+                    ProcessLineComment();
+                    outLexeme = null;
+                    break;
+                default:
+                    outLexeme = lexeme;
+                    break;
             }
         }
         /// <summary>
