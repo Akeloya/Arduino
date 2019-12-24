@@ -171,6 +171,12 @@
   <data name="MenuItemOpen" xml:space="preserve">
     <value>Открыть</value>
   </data>
+  <data name="MenuItemPageSettings" xml:space="preserve">
+    <value>Параметры страницы</value>
+  </data>
+  <data name="MenuItemPrint" xml:space="preserve">
+    <value>Печать</value>
+  </data>
   <data name="MenuItemRecent" xml:space="preserve">
     <value>Последние файлы..</value>
   </data>
@@ -188,5 +194,8 @@
   </data>
   <data name="MenuItemViewError" xml:space="preserve">
     <value>Список ошибок</value>
+  </data>
+  <data name="NewSketchName" xml:space="preserve">
+    <value>Новый скетч</value>
   </data>
 </root>

@@ -242,6 +242,24 @@ namespace ArduinoEmulator.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Page settings.
+        /// </summary>
+        public static string MenuItemPageSettings {
+            get {
+                return ResourceManager.GetString("MenuItemPageSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Print.
+        /// </summary>
+        public static string MenuItemPrint {
+            get {
+                return ResourceManager.GetString("MenuItemPrint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Recent.
         /// </summary>
         public static string MenuItemRecent {
@@ -292,6 +310,15 @@ namespace ArduinoEmulator.Resources {
         public static string MenuItemViewError {
             get {
                 return ResourceManager.GetString("MenuItemViewError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на New sketch.
+        /// </summary>
+        public static string NewSketchName {
+            get {
+                return ResourceManager.GetString("NewSketchName", resourceCulture);
             }
         }
         

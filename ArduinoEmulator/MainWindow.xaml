@@ -8,8 +8,16 @@
         xmlns:res="clr-namespace:ArduinoEmulator.Resources"
         xmlns:cmd="clr-namespace:ArduinoEmulator.Commands"
         mc:Ignorable="d"
-        Title="{x:Static res:Resource.MainWindowTitle}" Height="450" Width="800">
+        Title="{x:Static res:Resource.MainWindowTitle}" Height="450" Width="800" ShowInTaskbar="true" WindowState="Maximized">
     <Window.CommandBindings>
+        <CommandBinding Command="{x:Static cmd:MenuCommands.New}" Executed="New_Executed"></CommandBinding>
+        <CommandBinding Command="{x:Static cmd:MenuCommands.Open}" Executed="Open_Executed"></CommandBinding>
+        <CommandBinding Command="{x:Static cmd:MenuCommands.Close}"></CommandBinding>
+        <CommandBinding Command="{x:Static cmd:MenuCommands.Save}"></CommandBinding>
+        <CommandBinding Command="{x:Static cmd:MenuCommands.SaveAs}"></CommandBinding>
+        <CommandBinding Command="{x:Static cmd:MenuCommands.Print}"></CommandBinding>
+        <CommandBinding Command="{x:Static cmd:MenuCommands.PageSettings}"></CommandBinding>
+        <CommandBinding Command="{x:Static cmd:MenuCommands.Recent}"></CommandBinding>
         <CommandBinding Command="{x:Static cmd:MenuCommands.Build}" Executed="Build_Executed"></CommandBinding>
         <CommandBinding Command="{x:Static cmd:MenuCommands.AboutBox}" Executed="AboutBox_Executed"></CommandBinding>
         <CommandBinding Command="Close" Executed="Close_Executed"></CommandBinding>
@@ -23,15 +31,18 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="{x:Static res:Resource.MenuItemFile}">
-                <MenuItem Header="{x:Static res:Resource.MenuItemNew}"></MenuItem>
-                <MenuItem Header="{x:Static res:Resource.MenuItemOpen}"></MenuItem>
+                <MenuItem Header="{x:Static res:Resource.MenuItemNew}" Command="{x:Static cmd:MenuCommands.New}"></MenuItem>
+                <MenuItem Header="{x:Static res:Resource.MenuItemOpen}" Command="{x:Static cmd:MenuCommands.Open}"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="{x:Static res:Resource.MenuItemClose}"></MenuItem>
+                <MenuItem Header="{x:Static res:Resource.MenuItemClose}" Command="{x:Static cmd:MenuCommands.Close}"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="{x:Static res:Resource.MenuItemSave}"></MenuItem>
-                <MenuItem Header="{x:Static res:Resource.MenuItemSaveAs}"></MenuItem>
+                <MenuItem Header="{x:Static res:Resource.MenuItemSave}" Command="{x:Static cmd:MenuCommands.Save}"></MenuItem>
+                <MenuItem Header="{x:Static res:Resource.MenuItemSaveAs}" Command="{x:Static cmd:MenuCommands.SaveAs}"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="{x:Static res:Resource.MenuItemRecent}"></MenuItem>
+                <MenuItem Header="{x:Static res:Resource.MenuItemPageSettings}" Command="{x:Static cmd:MenuCommands.PageSettings}"></MenuItem>
+                <MenuItem Header="{x:Static res:Resource.MenuItemPrint}" Command="{x:Static cmd:MenuCommands.Print}"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="{x:Static res:Resource.MenuItemRecent}" Command="{x:Static cmd:MenuCommands.Recent}"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="{x:Static res:Resource.MenuItemExit}" Command="Close"></MenuItem>
             </MenuItem>
@@ -54,11 +65,8 @@
         </ToolBarPanel>
         <xcad:DockingManager Grid.Row="2">
             <xcad:LayoutRoot>
-                <xcad:LayoutPanel Orientation="Horizontal">
-                    <xcad:LayoutDocumentPane>
-                        <xcad:LayoutDocument Title="Display">
-                            <TextBox Name="rtbDisplay"></TextBox>
-                        </xcad:LayoutDocument>
+                <xcad:LayoutPanel Orientation="Horizontal" x:Name="LpXceedPanel">
+                    <xcad:LayoutDocumentPane x:Name="LdXceedDocPanel">
                     </xcad:LayoutDocumentPane>
                 </xcad:LayoutPanel>
             </xcad:LayoutRoot>

@@ -19,12 +19,16 @@
  */
 
 using ArduinoEmulator.Forms;
+using ArduinoEmulator.MVVM;
 using ArduinoLanguage;
 using ArduinoLanguage.Errors;
+using Microsoft.Win32;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Input;
+using Xceed.Wpf.AvalonDock.Layout;
 
 namespace ArduinoEmulator
 {
@@ -40,14 +44,14 @@ namespace ArduinoEmulator
 
         private void Build_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var text = File.ReadAllText(@"C:\Users\Максим\Source\Repos\Arduino\ArduinoLanguageTest\TestCodeSample\Analog read serial.ino");
+            /*var text = File.ReadAllText(@"C:\Users\Максим\Source\Repos\Arduino\ArduinoLanguageTest\TestCodeSample\Analog read serial.ino");
             rtbDisplay.Text = text + "\n\n-----------------------\n";
             LexemeAnalisis analisis = new LexemeAnalisis(text);
             IEnumerable<Error> errors = analisis.Analyse();
             foreach (Lexeme lexem in analisis.LexemeList)
             {
                 rtbDisplay.Text += lexem.LexemValue + "\n";
-            }
+            }*/
         }
 
         private void AboutBox_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -59,6 +63,27 @@ namespace ArduinoEmulator
         private void Close_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Close();
+        }
+
+        private void New_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            LdXceedDocPanel.Children.Add(ContentControl.DocumentFactory<LayoutDocument>());
+        }
+
+        private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() == true)
+            {
+                using (Stream fileStream = ofd.OpenFile())
+                {
+                    byte[] bytes = new byte[fileStream.Length];
+                    fileStream.Read(bytes, 0, (int)fileStream.Length);//TODO: fix type mismatch
+                    fileStream.Close();
+                    string text = Encoding.UTF8.GetString(bytes);
+                    LdXceedDocPanel.Children.Add(ContentControl.DocumentFactory<LayoutDocument>(new object[] { ofd.SafeFileName, text }));
+                }
+            }
         }
     }
 }

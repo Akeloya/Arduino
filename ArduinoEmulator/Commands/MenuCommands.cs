@@ -24,6 +24,14 @@ namespace ArduinoEmulator.Commands
 {
     public static class MenuCommands
     {
+        public static readonly RoutedCommand New = new RoutedUICommand(nameof(New), nameof(New), typeof(MenuItem));
+        public static readonly RoutedCommand Open = new RoutedUICommand(nameof(Open), nameof(Open), typeof(MenuItem));
+        public static readonly RoutedCommand Close = new RoutedUICommand(nameof(Close), nameof(Close), typeof(MenuItem));
+        public static readonly RoutedCommand Print = new RoutedUICommand(nameof(Print), nameof(Print), typeof(MenuItem));
+        public static readonly RoutedCommand PageSettings = new RoutedUICommand(nameof(PageSettings), nameof(PageSettings), typeof(MenuItem));
+        public static readonly RoutedCommand Recent = new RoutedUICommand(nameof(Recent), nameof(Recent), typeof(MenuItem));
+        public static readonly RoutedCommand Save = new RoutedUICommand(nameof(Save), nameof(Save), typeof(MenuItem));
+        public static readonly RoutedCommand SaveAs = new RoutedUICommand(nameof(SaveAs), nameof(SaveAs), typeof(MenuItem));
         public static readonly RoutedCommand Build = new RoutedUICommand(nameof(Build), nameof(Build), typeof(MenuItem));
         public static readonly RoutedCommand AboutBox = new RoutedUICommand(nameof(AboutBox), nameof(Build), typeof(MenuItem));
     }
