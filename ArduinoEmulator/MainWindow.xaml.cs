@@ -18,15 +18,18 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using ArduinoEmulator.Commands;
 using ArduinoEmulator.Forms;
 using ArduinoEmulator.MVVM;
 using ArduinoLanguage;
 using ArduinoLanguage.Errors;
 using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Xceed.Wpf.AvalonDock.Layout;
 
@@ -67,23 +70,60 @@ namespace ArduinoEmulator
 
         private void New_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            LdXceedDocPanel.Children.Add(ContentControl.DocumentFactory<LayoutDocument>());
+            LdXceedDocPanel.Children.Add(WndContentControl.DocumentFactory<LayoutDocument>());
         }
 
         private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            if (ofd.ShowDialog() == true)
+            OpenFile();
+        }
+
+        private void Recent_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            string fileName = e.Parameter?.ToString();
+            if (string.IsNullOrEmpty(fileName))
+                return;
+            OpenFile(fileName);
+        }
+
+        private void Recent_SubMenuOpened(object sender, RoutedEventArgs e)
+        {
+            MenuItem item = (MenuItem)e.Source;
+            item.Items.Clear();
+#if DEBUG
+            string[] testItems = new[] { "Bare minimum code.ino", "Analog read serial.ino", "Arrays.ino", "Blink.ino", "Graph.ino", "SwitchCase2.ino", "StringComparisonOperator.ino" };
+            foreach (string testItem in testItems)
             {
-                using (Stream fileStream = ofd.OpenFile())
+                item.Items.Add(new MenuItem { Header = testItem,
+                    CommandParameter = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, testItem),
+                    Command = MenuCommands.Recent });
+            }
+#endif   
+        }
+
+        private void OpenFile(string fileName = null)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (string.IsNullOrEmpty(fileName))
+            {
+                if (ofd.ShowDialog() != true)
                 {
-                    byte[] bytes = new byte[fileStream.Length];
-                    fileStream.Read(bytes, 0, (int)fileStream.Length);//TODO: fix type mismatch
-                    fileStream.Close();
-                    string text = Encoding.UTF8.GetString(bytes);
-                    LdXceedDocPanel.Children.Add(ContentControl.DocumentFactory<LayoutDocument>(new object[] { ofd.SafeFileName, text }));
+                    return;
                 }
             }
+            else
+            {
+                ofd.FileName = fileName;
+            }
+            using (Stream fileStream = ofd.OpenFile())
+            {
+                byte[] bytes = new byte[fileStream.Length];
+                fileStream.Read(bytes, 0, (int)fileStream.Length);//TODO: fix type mismatch
+                fileStream.Close();
+                string text = Encoding.UTF8.GetString(bytes);
+                LdXceedDocPanel.Children.Add(WndContentControl.DocumentFactory<LayoutDocument>(new object[] { ofd.SafeFileName, text }));
+            }
         }
+        
     }
 }

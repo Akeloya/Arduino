@@ -17,7 +17,7 @@
         <CommandBinding Command="{x:Static cmd:MenuCommands.SaveAs}"></CommandBinding>
         <CommandBinding Command="{x:Static cmd:MenuCommands.Print}"></CommandBinding>
         <CommandBinding Command="{x:Static cmd:MenuCommands.PageSettings}"></CommandBinding>
-        <CommandBinding Command="{x:Static cmd:MenuCommands.Recent}"></CommandBinding>
+        <CommandBinding Command="{x:Static cmd:MenuCommands.Recent}" Executed="Recent_Executed"></CommandBinding>
         <CommandBinding Command="{x:Static cmd:MenuCommands.Build}" Executed="Build_Executed"></CommandBinding>
         <CommandBinding Command="{x:Static cmd:MenuCommands.AboutBox}" Executed="AboutBox_Executed"></CommandBinding>
         <CommandBinding Command="Close" Executed="Close_Executed"></CommandBinding>
@@ -42,7 +42,9 @@
                 <MenuItem Header="{x:Static res:Resource.MenuItemPageSettings}" Command="{x:Static cmd:MenuCommands.PageSettings}"></MenuItem>
                 <MenuItem Header="{x:Static res:Resource.MenuItemPrint}" Command="{x:Static cmd:MenuCommands.Print}"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="{x:Static res:Resource.MenuItemRecent}" Command="{x:Static cmd:MenuCommands.Recent}"></MenuItem>
+                <MenuItem Header="{x:Static res:Resource.MenuItemRecent}" SubmenuOpened="Recent_SubMenuOpened">
+                    <MenuItem Header="Empty" Command="{x:Static cmd:MenuCommands.Recent}"></MenuItem>
+                </MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="{x:Static res:Resource.MenuItemExit}" Command="Close"></MenuItem>
             </MenuItem>

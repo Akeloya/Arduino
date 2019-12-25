@@ -6,7 +6,7 @@ using Xceed.Wpf.AvalonDock.Layout;
 
 namespace ArduinoEmulator.MVVM
 {
-    public class ContentControl
+    public class WndContentControl
     {
         public string Name { get; set; }
         public static T DocumentFactory<T>(object[] data = null) where T : notnull
