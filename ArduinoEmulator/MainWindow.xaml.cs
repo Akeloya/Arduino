@@ -40,10 +40,10 @@ namespace ArduinoEmulator
 
         private void Build_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var text = File.ReadAllText(@"C:\Users\Максим\Source\Repos\Arduino\ArduinoLanguageTest\TestCodeSample\Analog read serial.ino");
-            rtbDisplay.Text = text + "\n\n-----------------------\n";
+            var text = File.ReadAllText(@"..\..\..\..\ArduinoLanguageTest\TestCodeSample\Analog read serial.ino");
             LexemeAnalisis analisis = new LexemeAnalisis(text);
             IEnumerable<Error> errors = analisis.Analyse();
+            rtbDisplay.Text = text + "\n\n-----------------------\n";
             foreach (Lexeme lexem in analisis.LexemeList)
             {
                 rtbDisplay.Text += lexem.LexemValue + "\n";
