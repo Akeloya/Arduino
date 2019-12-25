@@ -117,33 +117,48 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutBoxAppNameLabel" xml:space="preserve">
-    <value>Application name</value>
-  </data>
-  <data name="AboutBoxConfigurationLabel" xml:space="preserve">
-    <value>Configuration</value>
-  </data>
-  <data name="AboutBoxCopyrightLabel" xml:space="preserve">
-    <value>Copyright</value>
-  </data>
-  <data name="AboutBoxDescriptionLabel" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="AboutBoxTitle" xml:space="preserve">
-    <value>About arduino emulator</value>
-  </data>
-  <data name="AboutBoxVersionLabel" xml:space="preserve">
-    <value>Version</value>
-  </data>
-  <data name="CloseButton" xml:space="preserve">
-    <value>Close</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="LICENSE" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>LICENSE;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Application" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>application.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="LicenseLabel" xml:space="preserve">
-    <value>License</value>
+  <data name="Audip_Wave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>audip-wave.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Binary_Code" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>binary-code.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Brackets_Square" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>brackets-square.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Clipboard" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>clipboard.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="CPU" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>cpu.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Document_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>document-add.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Editor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>editor.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Execute_multiple_queries" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>execute multiple queries.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Folder_Open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>folder-open.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Formula_Support" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>formula-support.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Full_Screen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>full screen.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Full_Screen_Collapsed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>full screen collapsed.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Help" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>help.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="MainWindowTitle" xml:space="preserve">
     <value>Arduino emulator</value>
@@ -162,9 +177,6 @@
   </data>
   <data name="MenuItemEdit" xml:space="preserve">
     <value>Edit</value>
-  </data>
-  <data name="MenuItemExit" xml:space="preserve">
-    <value>Exit</value>
   </data>
   <data name="MenuItemFile" xml:space="preserve">
     <value>File</value>
@@ -195,6 +207,9 @@
   </data>
   <data name="MenuItemViewError" xml:space="preserve">
     <value>Error list</value>
+  </data>
+  <data name="Micro_SD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>micro sd.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Papirus-Team-Papirus-Apps-Arduino" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Papirus-Team-Papirus-Apps-Arduino.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

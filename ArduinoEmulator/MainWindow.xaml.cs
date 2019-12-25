@@ -41,6 +41,8 @@ namespace ArduinoEmulator
         private void Build_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var text = File.ReadAllText(@"..\..\..\..\ArduinoLanguageTest\TestCodeSample\Analog read serial.ino");
+            rtbDisplay.Text = text;
+            rtbDisplay.Text += "\n\n-----------------------\n\n\n";
             LexemeAnalisis analisis = new LexemeAnalisis(text);
             IEnumerable<Error> errors = analisis.Analyse();
             rtbDisplay.Text = text + "\n\n-----------------------\n";

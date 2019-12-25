@@ -86,7 +86,6 @@ namespace ArduinoLanguage
             string lexeme = null;
             _codeLine = 1;
             _lexemeList.Clear();
-            bool stringState = false;
             _analysState.Push(LexemAnalisisState.LexemAnalys);
             try
             {
@@ -100,6 +99,11 @@ namespace ArduinoLanguage
                             ProcessLexem(GetLexemeType(lexeme), lexeme);
                             lexeme = null;
                         }
+                        continue;
+                    }
+                    lexeme += c;
+                    if(lexeme.Length == 2)// ++, --, +=, -=, /=
+                    {
                         continue;
                     }
 
@@ -130,6 +134,7 @@ namespace ArduinoLanguage
                     {
                         _analysState.Pop();
                         _analysState.Push(LexemAnalisisState.LineComment);
+                        result = true;
                     }
                     else
                         _analysState.Push(LexemAnalisisState.Division);
@@ -144,6 +149,13 @@ namespace ArduinoLanguage
                         _analysState.Push(LexemAnalisisState.Multiplying);
                     break;
                 case LexemeTypes.Assignment:
+                    if(_analysState.Peek() == LexemAnalisisState.Assignment)
+                    {
+                        _analysState.Pop();
+                        _analysState.Push(LexemAnalisisState.Equality);
+                        result = false;
+                    }
+                    else
                     {
                         result = ProcessAssignment(c, lexeme, out lexemeModificated);
                     }
