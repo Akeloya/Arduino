@@ -61,6 +61,60 @@ namespace ArduinoEmulator.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Application title.
+        /// </summary>
+        public static string AboutBoxAppNameLabel {
+            get {
+                return ResourceManager.GetString("AboutBoxAppNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Configuration.
+        /// </summary>
+        public static string AboutBoxConfigurationLabel {
+            get {
+                return ResourceManager.GetString("AboutBoxConfigurationLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Copyright.
+        /// </summary>
+        public static string AboutBoxCopyrightLabel {
+            get {
+                return ResourceManager.GetString("AboutBoxCopyrightLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Description.
+        /// </summary>
+        public static string AboutBoxDescriptionLabel {
+            get {
+                return ResourceManager.GetString("AboutBoxDescriptionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на About emulator.
+        /// </summary>
+        public static string AboutBoxTitle {
+            get {
+                return ResourceManager.GetString("AboutBoxTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Version.
+        /// </summary>
+        public static string AboutBoxVersionLabel {
+            get {
+                return ResourceManager.GetString("AboutBoxVersionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
         public static byte[] Application {
@@ -111,6 +165,15 @@ namespace ArduinoEmulator.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Close.
+        /// </summary>
+        public static string CloseButton {
+            get {
+                return ResourceManager.GetString("CloseButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
         public static byte[] CPU {
@@ -141,12 +204,39 @@ namespace ArduinoEmulator.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Error.
+        /// </summary>
+        public static string ErrorWndMessage {
+            get {
+                return ResourceManager.GetString("ErrorWndMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Threre is not text message for exception type {0} in resources.
+        /// </summary>
+        public static string ExceptionNotRegistered {
+            get {
+                return ResourceManager.GetString("ExceptionNotRegistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
         public static byte[] Execute_multiple_queries {
             get {
                 object obj = ResourceManager.GetObject("Execute_multiple_queries", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на File {0} not found or app cannot acces it.
+        /// </summary>
+        public static string FileNotFoundException {
+            get {
+                return ResourceManager.GetString("FileNotFoundException", resourceCulture);
             }
         }
         
@@ -197,6 +287,25 @@ namespace ArduinoEmulator.Resources {
             get {
                 object obj = ResourceManager.GetObject("Help", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] LICENSE {
+            get {
+                object obj = ResourceManager.GetObject("LICENSE", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на License.
+        /// </summary>
+        public static string LicenseLabel {
+            get {
+                return ResourceManager.GetString("LicenseLabel", resourceCulture);
             }
         }
         
@@ -255,6 +364,15 @@ namespace ArduinoEmulator.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Exit.
+        /// </summary>
+        public static string MenuItemExit {
+            get {
+                return ResourceManager.GetString("MenuItemExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на File.
         /// </summary>
         public static string MenuItemFile {
@@ -287,6 +405,24 @@ namespace ArduinoEmulator.Resources {
         public static string MenuItemOpen {
             get {
                 return ResourceManager.GetString("MenuItemOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Page settings.
+        /// </summary>
+        public static string MenuItemPageSettings {
+            get {
+                return ResourceManager.GetString("MenuItemPageSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Print.
+        /// </summary>
+        public static string MenuItemPrint {
+            get {
+                return ResourceManager.GetString("MenuItemPrint", resourceCulture);
             }
         }
         
@@ -351,6 +487,15 @@ namespace ArduinoEmulator.Resources {
             get {
                 object obj = ResourceManager.GetObject("Micro_SD", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на New sketch.
+        /// </summary>
+        public static string NewSketchName {
+            get {
+                return ResourceManager.GetString("NewSketchName", resourceCulture);
             }
         }
         

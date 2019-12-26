@@ -132,8 +132,20 @@
   <data name="AboutBoxTitle" xml:space="preserve">
     <value>Об эмуляторе ардуино</value>
   </data>
+  <data name="AboutBoxVersionLabel" xml:space="preserve">
+    <value>Версия</value>
+  </data>
   <data name="CloseButton" xml:space="preserve">
     <value>Закрыть</value>
+  </data>
+  <data name="ErrorWndMessage" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="ExceptionNotRegistered" xml:space="preserve">
+    <value>В ресурсах отсутствует текстовое сообщение для исключения типа {0}</value>
+  </data>
+  <data name="FileNotFoundException" xml:space="preserve">
+    <value>Файл {0} не найден или приложение не может получить к нему доступ</value>
   </data>
   <data name="LicenseLabel" xml:space="preserve">
     <value>Лицензия</value>

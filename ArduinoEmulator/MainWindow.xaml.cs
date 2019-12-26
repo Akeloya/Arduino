@@ -116,13 +116,20 @@ namespace ArduinoEmulator
             {
                 ofd.FileName = fileName;
             }
-            using (Stream fileStream = ofd.OpenFile())
+            try
             {
-                byte[] bytes = new byte[fileStream.Length];
-                fileStream.Read(bytes, 0, (int)fileStream.Length);//TODO: fix type mismatch
-                fileStream.Close();
-                string text = Encoding.UTF8.GetString(bytes);
-                LdXceedDocPanel.Children.Add(WndContentControl.DocumentFactory<LayoutDocument>(new object[] { ofd.SafeFileName, text }));
+                using (Stream fileStream = ofd.OpenFile())
+                {
+                    byte[] bytes = new byte[fileStream.Length];
+                    fileStream.Read(bytes, 0, (int)fileStream.Length);//TODO: fix type mismatch
+                    fileStream.Close();
+                    string text = Encoding.UTF8.GetString(bytes);
+                    LdXceedDocPanel.Children.Add(WndContentControl.DocumentFactory<LayoutDocument>(new object[] { ofd.SafeFileName, text }));
+                }
+            }
+            catch(FileNotFoundException e)
+            {
+                new MessageWnd(e, ofd.FileName).Show();
             }
         }
         

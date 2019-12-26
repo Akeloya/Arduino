@@ -4,9 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArduinoEmulator.Forms"
+        xmlns:controls="clr-namespace:ArduinoEmulator.Controls"
         mc:Ignorable="d"
         Title="MessageWnd" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBox IsReadOnly="True" TextWrapping="WrapWithOverflow" Name="TbMessate"></TextBox>
+        <controls:CloseButton Grid.Row="1" Width="100" HorizontalAlignment="Right"></controls:CloseButton>
     </Grid>
 </Window>

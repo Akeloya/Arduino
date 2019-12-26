@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ArduinoEmulator.Core;
+using ArduinoEmulator.Resources;
+using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ArduinoEmulator.Forms
 {
@@ -20,6 +13,17 @@ namespace ArduinoEmulator.Forms
         public MessageWnd()
         {
             InitializeComponent();
+        }
+
+        public MessageWnd(Exception ex, params object?[] args)
+        {
+            if (ex == null)
+                throw new ArgumentNullException(nameof(ex));
+
+            InitializeComponent();
+            Title = Resource.ErrorWndMessage;
+
+            TbMessate.Text = ResourceStringResolver.ResolveExceptionString(ex, args);
         }
     }
 }
