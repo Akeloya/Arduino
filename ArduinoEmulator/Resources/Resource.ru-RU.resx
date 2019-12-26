@@ -120,6 +120,9 @@
   <data name="AboutBoxAppNameLabel" xml:space="preserve">
     <value>Название приложения</value>
   </data>
+  <data name="AboutBoxComponents" xml:space="preserve">
+    <value>Компоненты</value>
+  </data>
   <data name="AboutBoxConfigurationLabel" xml:space="preserve">
     <value>Конфигурация</value>
   </data>
@@ -174,6 +177,9 @@
   <data name="MenuItemFile" xml:space="preserve">
     <value>Файл</value>
   </data>
+  <data name="MenuItemFullScreen" xml:space="preserve">
+    <value>Во весь экран</value>
+  </data>
   <data name="MenuItemHelp" xml:space="preserve">
     <value>Справка</value>
   </data>
@@ -206,6 +212,9 @@
   </data>
   <data name="MenuItemViewError" xml:space="preserve">
     <value>Список ошибок</value>
+  </data>
+  <data name="MenuItemWindow" xml:space="preserve">
+    <value>Окно</value>
   </data>
   <data name="NewSketchName" xml:space="preserve">
     <value>Новый скетч</value>

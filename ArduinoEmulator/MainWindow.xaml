@@ -7,9 +7,12 @@
         xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:res="clr-namespace:ArduinoEmulator.Resources"
         xmlns:cmd="clr-namespace:ArduinoEmulator.Commands"
+        xmlns:toolbars="clr-namespace:ArduinoEmulator.Toolbars"
+        xmlns:converters="clr-namespace:ArduinoEmulator.Converters"
         mc:Ignorable="d"
         Title="{x:Static res:Resource.MainWindowTitle}" Height="450" Width="800" ShowInTaskbar="true" WindowState="Maximized">
     <Window.CommandBindings>
+        <CommandBinding Command="{x:Static cmd:MenuCommands.FullScreen}" Executed="FullScreen_Executed"></CommandBinding>
         <CommandBinding Command="{x:Static cmd:MenuCommands.New}" Executed="New_Executed"></CommandBinding>
         <CommandBinding Command="{x:Static cmd:MenuCommands.Open}" Executed="Open_Executed"></CommandBinding>
         <CommandBinding Command="{x:Static cmd:MenuCommands.Close}"></CommandBinding>
@@ -22,6 +25,9 @@
         <CommandBinding Command="{x:Static cmd:MenuCommands.AboutBox}" Executed="AboutBox_Executed"></CommandBinding>
         <CommandBinding Command="Close" Executed="Close_Executed"></CommandBinding>
     </Window.CommandBindings>
+    <Window.Resources>
+        <converters:ByteArrayToImageConverter x:Key="ImageConverter"></converters:ByteArrayToImageConverter>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"></RowDefinition>
@@ -56,14 +62,19 @@
             <MenuItem Header="{x:Static res:Resource.MenuItemDebugging}">
                 <MenuItem Header="{x:Static res:Resource.MenuItemBuild}" Command="{x:Static cmd:MenuCommands.Build}"></MenuItem>
             </MenuItem>
+            <MenuItem Header="{x:Static res:Resource.MenuItemWindow}">
+                <MenuItem Header="{x:Static res:Resource.MenuItemFullScreen}" Command="{x:Static cmd:MenuCommands.FullScreen}"
+                          Icon="{Binding Source={x:Static res:Resource.Full_Screen}, Converter={StaticResource ImageConverter}}">
+                </MenuItem>
+            </MenuItem>
             <MenuItem Header="{x:Static res:Resource.MenuItemHelp}">
                 <MenuItem Header="{x:Static res:Resource.MenuItemAbout}" Command="{x:Static cmd:MenuCommands.AboutBox}"></MenuItem>
             </MenuItem>
         </Menu>
         <ToolBarTray Grid.Row="1" AllowDrop="true">
-            <ToolBar Width="50">
-                <Button Width="23" Height="23" Command="{x:Static cmd:BuildMenuCommands.Build}"></Button>
-            </ToolBar>
+            <toolbars:StandardToolbar>
+                
+            </toolbars:StandardToolbar>
             <ToolBar Width="50">
                 <Button Width="23" Height="23" Command="{x:Static cmd:BuildMenuCommands.Build}"></Button>
             </ToolBar>

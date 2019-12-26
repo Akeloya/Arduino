@@ -2,7 +2,7 @@
  *  "Arduino emulator", the simple virtual emulator arduino circuit.
  *  Copyright (C) 2019 by Maxim V. Yugov.
  *
- *  This file is part of "Arduino core".
+ *  This file is part of "Arduino emulator".
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,13 +19,27 @@
  */
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
-namespace ArduinoCore
+namespace ArduinoEmulator.Toolbars
 {
-    public class Board
+    /// <summary>
+    /// Логика взаимодействия для StandardToolbar.xaml
+    /// </summary>
+    public partial class StandardToolbar : ToolBar
     {
+        public StandardToolbar()
+        {
+            InitializeComponent();
+        }
     }
 }

@@ -35,6 +35,7 @@
             <TextBlock Height="25" Margin="20 2 2 2" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AboutBox}}, Path=Configuration}"></TextBlock>
             <Label Content="{x:Static res:Resource.AboutBoxDescriptionLabel}" Height="25"></Label>
             <TextBox Height="100"  Margin="20 2 2 2" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AboutBox}}, Path=Description}"></TextBox>
+            <Label Content="{x:Static res:Resource.AboutBoxComponents}"></Label>
         </StackPanel>
         <controls:CloseButton Grid.Column="1" Grid.Row="2" Width="90" HorizontalAlignment="Right" Margin="2"></controls:CloseButton>
     </Grid>

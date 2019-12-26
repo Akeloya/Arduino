@@ -70,6 +70,15 @@ namespace ArduinoEmulator.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Components.
+        /// </summary>
+        public static string AboutBoxComponents {
+            get {
+                return ResourceManager.GetString("AboutBoxComponents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Configuration.
         /// </summary>
         public static string AboutBoxConfigurationLabel {
@@ -382,6 +391,15 @@ namespace ArduinoEmulator.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Full screen.
+        /// </summary>
+        public static string MenuItemFullScreen {
+            get {
+                return ResourceManager.GetString("MenuItemFullScreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Help.
         /// </summary>
         public static string MenuItemHelp {
@@ -481,6 +499,15 @@ namespace ArduinoEmulator.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Window.
+        /// </summary>
+        public static string MenuItemWindow {
+            get {
+                return ResourceManager.GetString("MenuItemWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
         public static byte[] Micro_SD {
@@ -505,6 +532,66 @@ namespace ArduinoEmulator.Resources {
         public static byte[] Papirus_Team_Papirus_Apps_Arduino {
             get {
                 object obj = ResourceManager.GetObject("Papirus-Team-Papirus-Apps-Arduino", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] Save {
+            get {
+                object obj = ResourceManager.GetObject("Save", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] Save_All_Attachments {
+            get {
+                object obj = ResourceManager.GetObject("Save_All_Attachments", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] Save_As {
+            get {
+                object obj = ResourceManager.GetObject("Save_As", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] Warning {
+            get {
+                object obj = ResourceManager.GetObject("Warning", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] Window {
+            get {
+                object obj = ResourceManager.GetObject("Window", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] Windows {
+            get {
+                object obj = ResourceManager.GetObject("Windows", resourceCulture);
                 return ((byte[])(obj));
             }
         }

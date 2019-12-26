@@ -120,6 +120,9 @@
   <data name="AboutBoxAppNameLabel" xml:space="preserve">
     <value>Application title</value>
   </data>
+  <data name="AboutBoxComponents" xml:space="preserve">
+    <value>Components</value>
+  </data>
   <data name="AboutBoxConfigurationLabel" xml:space="preserve">
     <value>Configuration</value>
   </data>
@@ -220,6 +223,9 @@
   <data name="MenuItemFile" xml:space="preserve">
     <value>File</value>
   </data>
+  <data name="MenuItemFullScreen" xml:space="preserve">
+    <value>Full screen</value>
+  </data>
   <data name="MenuItemHelp" xml:space="preserve">
     <value>Help</value>
   </data>
@@ -253,6 +259,9 @@
   <data name="MenuItemViewError" xml:space="preserve">
     <value>Error list</value>
   </data>
+  <data name="MenuItemWindow" xml:space="preserve">
+    <value>Window</value>
+  </data>
   <data name="Micro_SD" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>micro sd.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -261,5 +270,23 @@
   </data>
   <data name="Papirus-Team-Papirus-Apps-Arduino" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Papirus-Team-Papirus-Apps-Arduino.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Save" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>save.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Save_All_Attachments" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>save-all-attachments.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Save_As" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>save as.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>warning.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Window" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>window.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Windows" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>windows.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

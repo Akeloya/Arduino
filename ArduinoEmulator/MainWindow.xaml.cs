@@ -132,6 +132,20 @@ namespace ArduinoEmulator
                 new MessageWnd(e, ofd.FileName).Show();
             }
         }
-        
+
+        private void FullScreen_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if(WindowStyle == WindowStyle.None)
+            {
+                WindowStyle = WindowStyle.SingleBorderWindow;
+                ResizeMode = ResizeMode.CanResize;
+            }
+            else
+            {
+                WindowStyle = WindowStyle.None;
+                ResizeMode = ResizeMode.NoResize;
+                WindowState = WindowState.Maximized;
+            }
+        }
     }
 }

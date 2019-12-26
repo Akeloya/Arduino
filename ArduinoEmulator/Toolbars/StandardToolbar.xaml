@@ -1,0 +1,53 @@
+﻿<ToolBar x:Class="ArduinoEmulator.Toolbars.StandardToolbar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ArduinoEmulator.Toolbars"
+             xmlns:res="clr-namespace:ArduinoEmulator.Resources"
+         xmlns:converters="clr-namespace:ArduinoEmulator.Converters"
+         mc:Ignorable="d" 
+             d:DesignHeight="25" d:DesignWidth="800">
+    <ToolBar.Resources>
+        <converters:ByteArrayToImageConverter x:Key="Converter"></converters:ByteArrayToImageConverter>
+        <Style x:Key="DefaultButton" TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="25"></Setter>
+            <Setter Property="Height" Value="25"></Setter>
+        </Style>
+        <Style x:Key="NewFile" TargetType="{x:Type Button}" BasedOn="{StaticResource DefaultButton}">
+            <Setter Property="Content">
+                <Setter.Value>
+                    <Image Source="{Binding Source={x:Static res:Resource.Document_Add},Converter={StaticResource Converter}}"></Image>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="FolderOpen" TargetType="{x:Type Button}" BasedOn="{StaticResource DefaultButton}">
+            <Setter Property="Content">
+                <Setter.Value>
+                    <Image Source="{Binding Source={x:Static res:Resource.Folder_Open},Converter={StaticResource Converter}}"></Image>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Save" TargetType="{x:Type Button}" BasedOn="{StaticResource DefaultButton}">
+            <Setter Property="Content">
+                <Setter.Value>
+                    <Image Source="{Binding Source={x:Static res:Resource.Save},Converter={StaticResource Converter}}"></Image>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SaveAll" TargetType="{x:Type Button}" BasedOn="{StaticResource DefaultButton}">
+            <Setter Property="Content">
+                <Setter.Value>
+                    <Image Source="{Binding Source={x:Static res:Resource.Save_As},Converter={StaticResource Converter}}"></Image>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </ToolBar.Resources>
+    <Button Style="{StaticResource NewFile}"></Button>
+    <Button Style="{StaticResource FolderOpen}"></Button>
+    <Button Style="{StaticResource Save}"></Button>
+    <Button Style="{StaticResource SaveAll}"></Button>
+    <Separator></Separator>
+    <Button Style="{StaticResource DefaultButton}"></Button>
+    <Button></Button>
+</ToolBar>

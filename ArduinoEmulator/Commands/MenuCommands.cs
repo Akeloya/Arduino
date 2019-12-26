@@ -34,5 +34,6 @@ namespace ArduinoEmulator.Commands
         public static readonly RoutedCommand SaveAs = new RoutedUICommand(nameof(SaveAs), nameof(SaveAs), typeof(MenuItem));
         public static readonly RoutedCommand Build = new RoutedUICommand(nameof(Build), nameof(Build), typeof(MenuItem));
         public static readonly RoutedCommand AboutBox = new RoutedUICommand(nameof(AboutBox), nameof(Build), typeof(MenuItem));
+        public static readonly RoutedCommand FullScreen = new RoutedUICommand(nameof(FullScreen), nameof(FullScreen), typeof(MenuItem));
     }
 }
