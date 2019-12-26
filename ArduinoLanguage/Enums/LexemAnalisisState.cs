@@ -16,5 +16,7 @@
         Multiplying,//Появился знак умножения "*", за которым следует закрытие комментария или же выражение        
         Summation,
         Decrease,
+        Assignment,// =
+        Equality// ==
     }
 }

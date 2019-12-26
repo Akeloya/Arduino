@@ -61,84 +61,142 @@ namespace ArduinoEmulator.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Application name.
+        ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
-        public static string AboutBoxAppNameLabel {
+        public static byte[] Application {
             get {
-                return ResourceManager.GetString("AboutBoxAppNameLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Configuration.
-        /// </summary>
-        public static string AboutBoxConfigurationLabel {
-            get {
-                return ResourceManager.GetString("AboutBoxConfigurationLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Copyright.
-        /// </summary>
-        public static string AboutBoxCopyrightLabel {
-            get {
-                return ResourceManager.GetString("AboutBoxCopyrightLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Description.
-        /// </summary>
-        public static string AboutBoxDescriptionLabel {
-            get {
-                return ResourceManager.GetString("AboutBoxDescriptionLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на About arduino emulator.
-        /// </summary>
-        public static string AboutBoxTitle {
-            get {
-                return ResourceManager.GetString("AboutBoxTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Version.
-        /// </summary>
-        public static string AboutBoxVersionLabel {
-            get {
-                return ResourceManager.GetString("AboutBoxVersionLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Close.
-        /// </summary>
-        public static string CloseButton {
-            get {
-                return ResourceManager.GetString("CloseButton", resourceCulture);
+                object obj = ResourceManager.GetObject("Application", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
-        public static byte[] LICENSE {
+        public static byte[] Audip_Wave {
             get {
-                object obj = ResourceManager.GetObject("LICENSE", resourceCulture);
+                object obj = ResourceManager.GetObject("Audip_Wave", resourceCulture);
                 return ((byte[])(obj));
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на License.
+        ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
-        public static string LicenseLabel {
+        public static byte[] Binary_Code {
             get {
-                return ResourceManager.GetString("LicenseLabel", resourceCulture);
+                object obj = ResourceManager.GetObject("Binary_Code", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] Brackets_Square {
+            get {
+                object obj = ResourceManager.GetObject("Brackets_Square", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] Clipboard {
+            get {
+                object obj = ResourceManager.GetObject("Clipboard", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] CPU {
+            get {
+                object obj = ResourceManager.GetObject("CPU", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] Document_Add {
+            get {
+                object obj = ResourceManager.GetObject("Document_Add", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] Editor {
+            get {
+                object obj = ResourceManager.GetObject("Editor", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] Execute_multiple_queries {
+            get {
+                object obj = ResourceManager.GetObject("Execute_multiple_queries", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] Folder_Open {
+            get {
+                object obj = ResourceManager.GetObject("Folder_Open", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] Formula_Support {
+            get {
+                object obj = ResourceManager.GetObject("Formula_Support", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] Full_Screen {
+            get {
+                object obj = ResourceManager.GetObject("Full_Screen", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] Full_Screen_Collapsed {
+            get {
+                object obj = ResourceManager.GetObject("Full_Screen_Collapsed", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] Help {
+            get {
+                object obj = ResourceManager.GetObject("Help", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -197,15 +255,6 @@ namespace ArduinoEmulator.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Exit.
-        /// </summary>
-        public static string MenuItemExit {
-            get {
-                return ResourceManager.GetString("MenuItemExit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на File.
         /// </summary>
         public static string MenuItemFile {
@@ -238,24 +287,6 @@ namespace ArduinoEmulator.Resources {
         public static string MenuItemOpen {
             get {
                 return ResourceManager.GetString("MenuItemOpen", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Page settings.
-        /// </summary>
-        public static string MenuItemPageSettings {
-            get {
-                return ResourceManager.GetString("MenuItemPageSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Print.
-        /// </summary>
-        public static string MenuItemPrint {
-            get {
-                return ResourceManager.GetString("MenuItemPrint", resourceCulture);
             }
         }
         
@@ -314,11 +345,12 @@ namespace ArduinoEmulator.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на New sketch.
+        ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
-        public static string NewSketchName {
+        public static byte[] Micro_SD {
             get {
-                return ResourceManager.GetString("NewSketchName", resourceCulture);
+                object obj = ResourceManager.GetObject("Micro_SD", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

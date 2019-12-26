@@ -51,6 +51,7 @@ namespace ArduinoEmulator
             rtbDisplay.Text = text + "\n\n-----------------------\n";
             LexemeAnalisis analisis = new LexemeAnalisis(text);
             IEnumerable<Error> errors = analisis.Analyse();
+            rtbDisplay.Text = text + "\n\n-----------------------\n";
             foreach (Lexeme lexem in analisis.LexemeList)
             {
                 rtbDisplay.Text += lexem.LexemValue + "\n";

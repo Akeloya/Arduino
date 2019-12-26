@@ -60,11 +60,17 @@
                 <MenuItem Header="{x:Static res:Resource.MenuItemAbout}" Command="{x:Static cmd:MenuCommands.AboutBox}"></MenuItem>
             </MenuItem>
         </Menu>
-        <ToolBarPanel Grid.Row="1" AllowDrop="true" HorizontalAlignment="Left">
+        <ToolBarTray Grid.Row="1" AllowDrop="true">
+            <ToolBar Width="50">
+                <Button Width="23" Height="23" Command="{x:Static cmd:BuildMenuCommands.Build}"></Button>
+            </ToolBar>
+            <ToolBar Width="50">
+                <Button Width="23" Height="23" Command="{x:Static cmd:BuildMenuCommands.Build}"></Button>
+            </ToolBar>
             <ToolBar Width="50">
                 <Button Width="23" Height="23" Command="{x:Static cmd:MenuCommands.Build}"></Button>
             </ToolBar>
-        </ToolBarPanel>
+        </ToolBarTray>
         <xcad:DockingManager Grid.Row="2">
             <xcad:LayoutRoot>
                 <xcad:LayoutPanel Orientation="Horizontal" x:Name="LpXceedPanel">
