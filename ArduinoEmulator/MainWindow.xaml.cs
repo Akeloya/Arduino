@@ -164,7 +164,14 @@ namespace ArduinoEmulator
 
         private void Print_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            ImageMenuItem item = (ImageMenuItem)e.OriginalSource;
+            PrintDialog printDlg = new PrintDialog
+            {
+                CurrentPageEnabled = true
+            };
+            if (printDlg.ShowDialog() == true)
+            {
+                
+            }
         }
     }
 }
