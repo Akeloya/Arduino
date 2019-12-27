@@ -19,28 +19,8 @@
     <ProjectReference Include="..\ArduinoLanguage\ArduinoLanguage.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="TestCodeSample\Analog read serial.ino">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="TestCodeSample\Arrays.ino">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="TestCodeSample\Bare minimum code.ino">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="TestCodeSample\Blink.ino">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="TestCodeSample\Graph.ino">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="TestCodeSample\StringComparisonOperator.ino">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="TestCodeSample\SwitchCase2.ino">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="xcopy $(SolutionDir)TestCodeSample\*.ino $(TargetDir)" />
+  </Target>
 
 </Project>

@@ -17,6 +17,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArduinoCore", "ArduinoCore\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArduinoEmulator", "ArduinoEmulator\ArduinoEmulator.csproj", "{9332BAD3-6627-45BA-8B52-F225B5080DEC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestCodeSample", "TestCodeSample", "{A317DED4-08C6-4576-8277-E26CB1A40551}"
+	ProjectSection(SolutionItems) = preProject
+		TestCodeSample\Analog read serial.ino = TestCodeSample\Analog read serial.ino
+		TestCodeSample\Arrays.ino = TestCodeSample\Arrays.ino
+		TestCodeSample\Bare minimum code.ino = TestCodeSample\Bare minimum code.ino
+		TestCodeSample\Blink.ino = TestCodeSample\Blink.ino
+		TestCodeSample\Graph.ino = TestCodeSample\Graph.ino
+		TestCodeSample\StringComparisonOperator.ino = TestCodeSample\StringComparisonOperator.ino
+		TestCodeSample\SwitchCase2.ino = TestCodeSample\SwitchCase2.ino
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +53,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A317DED4-08C6-4576-8277-E26CB1A40551} = {595F8E8A-B48D-4434-B52B-D0FC2760BDA0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A91E4CFA-27BD-46E6-8438-96402AD8FE92}

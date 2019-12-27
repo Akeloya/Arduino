@@ -70,4 +70,8 @@
     <Resource Include="Resources\Printer.png" />
   </ItemGroup>
 
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="xcopy $(SolutionDir)TestCodeSample\*.ino $(TargetDir)" />
+  </Target>
+
 </Project>
