@@ -26,6 +26,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Full Screen.png" />
+    <None Remove="Resources\Printer.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="3.7.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
       <PrivateAssets>all</PrivateAssets>
@@ -58,6 +63,11 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Full Screen.png" />
+    <Resource Include="Resources\Printer.png" />
   </ItemGroup>
 
 </Project>

@@ -17,6 +17,8 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+using System;
+using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -35,5 +37,15 @@ namespace ArduinoEmulator.Commands
         public static readonly RoutedCommand Build = new RoutedUICommand(nameof(Build), nameof(Build), typeof(MenuItem));
         public static readonly RoutedCommand AboutBox = new RoutedUICommand(nameof(AboutBox), nameof(Build), typeof(MenuItem));
         public static readonly RoutedCommand FullScreen = new RoutedUICommand(nameof(FullScreen), nameof(FullScreen), typeof(MenuItem));
+
+        public static RoutedCommand CommandFromString(string command)
+        {
+            if (string.IsNullOrEmpty(command))
+                throw new ArgumentNullException(nameof(command));
+            FieldInfo fieldInfo = typeof(MenuCommands)
+                .GetField(command, BindingFlags.Public | BindingFlags.Static);
+
+            return (RoutedCommand)fieldInfo.GetValue(null);
+        }
     }
 }

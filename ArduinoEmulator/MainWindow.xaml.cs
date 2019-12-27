@@ -19,6 +19,7 @@
  */
 
 using ArduinoEmulator.Commands;
+using ArduinoEmulator.Controls;
 using ArduinoEmulator.Forms;
 using ArduinoEmulator.MVVM;
 using ArduinoLanguage;
@@ -39,11 +40,33 @@ namespace ArduinoEmulator
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
+    {        
         public MainWindow()
         {
             InitializeComponent();
         }
+
+        internal bool IsFullScreen { get { return (bool)GetValue(IsFullScreenProperty); } set { SetValue(IsFullScreenProperty, value); } }
+        internal static readonly DependencyProperty IsFullScreenProperty = DependencyProperty.Register(nameof(IsFullScreen), typeof(bool), typeof(MainWindow), new PropertyMetadata(false, (sender, args)=> {
+
+            MainWindow window = (MainWindow)sender;
+            bool newState = (bool)args.NewValue;
+
+            if (newState)
+            {
+                window.WindowStyle = WindowStyle.None;
+                window.ResizeMode = ResizeMode.NoResize;
+                window.WindowState = WindowState.Normal;
+                window.WindowState = WindowState.Maximized;
+                window.MenuStrip.VerticalAlignment = VerticalAlignment.Bottom;
+            }
+            else
+            {
+                window.WindowStyle = WindowStyle.SingleBorderWindow;
+                window.ResizeMode = ResizeMode.CanResize;
+                window.MenuStrip.VerticalAlignment = VerticalAlignment.Stretch;
+            }
+        }));
 
         private void Build_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -89,13 +112,14 @@ namespace ArduinoEmulator
 
         private void Recent_SubMenuOpened(object sender, RoutedEventArgs e)
         {
-            MenuItem item = (MenuItem)e.Source;
+            System.Windows.Controls.MenuItem item = (System.Windows.Controls.MenuItem)e.Source;
             item.Items.Clear();
 #if DEBUG
             string[] testItems = new[] { "Bare minimum code.ino", "Analog read serial.ino", "Arrays.ino", "Blink.ino", "Graph.ino", "SwitchCase2.ino", "StringComparisonOperator.ino" };
             foreach (string testItem in testItems)
             {
-                item.Items.Add(new MenuItem { Header = testItem,
+                item.Items.Add(new System.Windows.Controls.MenuItem
+                { Header = testItem,
                     CommandParameter = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, testItem),
                     Command = MenuCommands.Recent });
             }
@@ -135,17 +159,12 @@ namespace ArduinoEmulator
 
         private void FullScreen_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if(WindowStyle == WindowStyle.None)
-            {
-                WindowStyle = WindowStyle.SingleBorderWindow;
-                ResizeMode = ResizeMode.CanResize;
-            }
-            else
-            {
-                WindowStyle = WindowStyle.None;
-                ResizeMode = ResizeMode.NoResize;
-                WindowState = WindowState.Maximized;
-            }
+            IsFullScreen = !IsFullScreen;
+        }
+
+        private void Print_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ImageMenuItem item = (ImageMenuItem)e.OriginalSource;
         }
     }
 }

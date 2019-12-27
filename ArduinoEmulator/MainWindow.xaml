@@ -9,6 +9,7 @@
         xmlns:cmd="clr-namespace:ArduinoEmulator.Commands"
         xmlns:toolbars="clr-namespace:ArduinoEmulator.Toolbars"
         xmlns:converters="clr-namespace:ArduinoEmulator.Converters"
+        xmlns:ctr="clr-namespace:ArduinoEmulator.Controls"
         mc:Ignorable="d"
         Title="{x:Static res:Resource.MainWindowTitle}" Height="450" Width="800" ShowInTaskbar="true" WindowState="Maximized">
     <Window.CommandBindings>
@@ -18,7 +19,7 @@
         <CommandBinding Command="{x:Static cmd:MenuCommands.Close}"></CommandBinding>
         <CommandBinding Command="{x:Static cmd:MenuCommands.Save}"></CommandBinding>
         <CommandBinding Command="{x:Static cmd:MenuCommands.SaveAs}"></CommandBinding>
-        <CommandBinding Command="{x:Static cmd:MenuCommands.Print}"></CommandBinding>
+        <CommandBinding Command="{x:Static cmd:MenuCommands.Print}" Executed="Print_Executed"></CommandBinding>
         <CommandBinding Command="{x:Static cmd:MenuCommands.PageSettings}"></CommandBinding>
         <CommandBinding Command="{x:Static cmd:MenuCommands.Recent}" Executed="Recent_Executed"></CommandBinding>
         <CommandBinding Command="{x:Static cmd:MenuCommands.Build}" Executed="Build_Executed"></CommandBinding>
@@ -27,6 +28,7 @@
     </Window.CommandBindings>
     <Window.Resources>
         <converters:ByteArrayToImageConverter x:Key="ImageConverter"></converters:ByteArrayToImageConverter>
+        <converters:BooleanToVisibilityConverter x:Key="BoolToVisibility"></converters:BooleanToVisibilityConverter>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -35,25 +37,25 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="25"></RowDefinition>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0">
-            <MenuItem Header="{x:Static res:Resource.MenuItemFile}">
-                <MenuItem Header="{x:Static res:Resource.MenuItemNew}" Command="{x:Static cmd:MenuCommands.New}"></MenuItem>
-                <MenuItem Header="{x:Static res:Resource.MenuItemOpen}" Command="{x:Static cmd:MenuCommands.Open}"></MenuItem>
+        <Menu Grid.Row="0" VerticalAlignment="Stretch" Name="MenuStrip">
+            <ctr:MenuItem ResourceHeader="MenuItemFile">
+                <ctr:MenuItem ResourceHeader="MenuItemNew" CommandName="New"></ctr:MenuItem>
+                <ctr:MenuItem ResourceHeader="MenuItemOpen" CommandName="Open"></ctr:MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="{x:Static res:Resource.MenuItemClose}" Command="{x:Static cmd:MenuCommands.Close}"></MenuItem>
+                <ctr:MenuItem ResourceHeader="MenuItemClose" CommandName="Close"></ctr:MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="{x:Static res:Resource.MenuItemSave}" Command="{x:Static cmd:MenuCommands.Save}"></MenuItem>
-                <MenuItem Header="{x:Static res:Resource.MenuItemSaveAs}" Command="{x:Static cmd:MenuCommands.SaveAs}"></MenuItem>
+                <ctr:ImageMenuItem ResourceHeader="MenuItemSave" CommandName="Save" ImageResourceName="Save"></ctr:ImageMenuItem>
+                <ctr:ImageMenuItem ResourceHeader="MenuItemSaveAs" CommandName="SaveAs" ImageResourceName="Save_As"></ctr:ImageMenuItem>
                 <Separator></Separator>
-                <MenuItem Header="{x:Static res:Resource.MenuItemPageSettings}" Command="{x:Static cmd:MenuCommands.PageSettings}"></MenuItem>
-                <MenuItem Header="{x:Static res:Resource.MenuItemPrint}" Command="{x:Static cmd:MenuCommands.Print}"></MenuItem>
+                <ctr:MenuItem ResourceHeader="MenuItemPageSettings" CommandName="PageSettings"></ctr:MenuItem>
+                <ctr:ImageMenuItem ResourceHeader="MenuItemPrint" CommandName="Print" ImageResourceName="Printer"></ctr:ImageMenuItem>
                 <Separator></Separator>
                 <MenuItem Header="{x:Static res:Resource.MenuItemRecent}" SubmenuOpened="Recent_SubMenuOpened">
                     <MenuItem Header="Empty" Command="{x:Static cmd:MenuCommands.Recent}"></MenuItem>
                 </MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="{x:Static res:Resource.MenuItemExit}" Command="Close"></MenuItem>
-            </MenuItem>
+            </ctr:MenuItem>
             <MenuItem Header="{x:Static res:Resource.MenuItemEdit}"></MenuItem>
             <MenuItem Header="{x:Static res:Resource.MenuItemView}">
                 <MenuItem Header="{x:Static res:Resource.MenuItemViewDisplay}"></MenuItem>
@@ -63,13 +65,23 @@
                 <MenuItem Header="{x:Static res:Resource.MenuItemBuild}" Command="{x:Static cmd:MenuCommands.Build}"></MenuItem>
             </MenuItem>
             <MenuItem Header="{x:Static res:Resource.MenuItemWindow}">
-                <MenuItem Header="{x:Static res:Resource.MenuItemFullScreen}" Command="{x:Static cmd:MenuCommands.FullScreen}"
-                          Icon="{Binding Source={x:Static res:Resource.Full_Screen}, Converter={StaticResource ImageConverter}}">
-                </MenuItem>
+                <ctr:ImageMenuItem ResourceHeader="MenuItemFullScreen"
+                                    CommandName="FullScreen"
+                                   ImageResourceName="Full_Screen">
+                </ctr:ImageMenuItem>
             </MenuItem>
-            <MenuItem Header="{x:Static res:Resource.MenuItemHelp}">
-                <MenuItem Header="{x:Static res:Resource.MenuItemAbout}" Command="{x:Static cmd:MenuCommands.AboutBox}"></MenuItem>
-            </MenuItem>
+            <ctr:MenuItem ResourceHeader="MenuItemHelp">
+                <ctr:MenuItem ResourceHeader="MenuItemAbout" CommandName="AboutBox">
+                </ctr:MenuItem>
+            </ctr:MenuItem>
+            <ctr:ImageMenuItem ResourceHeader="MenuItemFullScreen"
+                      CommandName="FullScreen"
+                      Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                                            AncestorType={x:Type local:MainWindow}},
+                                    Path=IsFullScreen,
+                                    Converter={StaticResource BoolToVisibility},
+                                    ConverterParameter=true}" ImageResourceName="Full Screen">
+            </ctr:ImageMenuItem>
         </Menu>
         <ToolBarTray Grid.Row="1" AllowDrop="true">
             <toolbars:StandardToolbar>
