@@ -7,7 +7,7 @@
         xmlns:res="clr-namespace:ArduinoEmulator.Resources"
         xmlns:controls="clr-namespace:ArduinoEmulator.Controls"
         mc:Ignorable="d"
-        Title="{x:Static res:Resource.AboutBoxTitle}" Height="450" Width="800" ResizeMode="NoResize">
+        Title="{x:Static res:Resource.AboutBoxTitle}" Height="650" Width="800" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"></RowDefinition>
@@ -36,6 +36,9 @@
             <Label Content="{x:Static res:Resource.AboutBoxDescriptionLabel}" Height="25"></Label>
             <TextBox Height="100"  Margin="20 2 2 2" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AboutBox}}, Path=Description}"></TextBox>
             <Label Content="{x:Static res:Resource.AboutBoxComponents}"></Label>
+            <ListView Height="180" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type local:AboutBox}},Path=ComponentLicenses}"
+                      DisplayMemberPath="Component" SelectedIndex="0" SelectedValuePath="License" SelectionChanged="ComponentLicenses_SelectionChanged">
+            </ListView>
         </StackPanel>
         <controls:CloseButton Grid.Column="1" Grid.Row="2" Width="90" HorizontalAlignment="Right" Margin="2"></controls:CloseButton>
     </Grid>

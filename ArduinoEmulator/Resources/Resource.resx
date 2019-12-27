@@ -145,6 +145,12 @@
   <data name="Audip_Wave" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>audip-wave.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="AvalonEdit" xml:space="preserve">
+    <value>Avalon Edit</value>
+  </data>
+  <data name="AVALONEDITLICENSE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>avaloneditlicense;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Binary_Code" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>binary-code.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -291,5 +297,11 @@
   </data>
   <data name="Windows" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>windows.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="XCEEDLICENSE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LICENSE.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="XceedWpfToolkit" xml:space="preserve">
+    <value>Extended WPF Toolkit™ v3.7.0</value>
   </data>
 </root>

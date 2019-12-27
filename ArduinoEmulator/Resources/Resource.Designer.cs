@@ -144,6 +144,25 @@ namespace ArduinoEmulator.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Avalon Edit.
+        /// </summary>
+        public static string AvalonEdit {
+            get {
+                return ResourceManager.GetString("AvalonEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] AVALONEDITLICENSE {
+            get {
+                object obj = ResourceManager.GetObject("AVALONEDITLICENSE", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
         public static byte[] Binary_Code {
@@ -603,6 +622,31 @@ namespace ArduinoEmulator.Resources {
             get {
                 object obj = ResourceManager.GetObject("Windows", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на XCEED SOFTWARE, INC.
+        ///
+        ///COMMUNITY LICENSE AGREEMENT (for non-commercial use)
+        ///
+        ///This &quot;Agreement&quot; is a legal agreement between you, a software developer (&quot;Licensee&quot;) and Xceed Software, Inc. (&quot;Xceed&quot;). 
+        ///You, the Licensee, wish to use Xceed&apos;s product &quot;Xceed Extended WPF Toolkit&quot; (the &quot;Software&quot;), an Xceed product, for use 
+        ///in a non-commercial application or system or program. &quot;Non-Commercial use&quot; means not primarily intended for commercial 
+        ///advantages or for monetary compensation or any other type of compe [остаток строки не уместился]&quot;;.
+        /// </summary>
+        public static string XCEEDLICENSE {
+            get {
+                return ResourceManager.GetString("XCEEDLICENSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Extended WPF Toolkit™ v3.7.0.
+        /// </summary>
+        public static string XceedWpfToolkit {
+            get {
+                return ResourceManager.GetString("XceedWpfToolkit", resourceCulture);
             }
         }
     }

@@ -17,6 +17,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+using ICSharpCode.AvalonEdit;
 using System;
 using System.Windows.Controls;
 using Xceed.Wpf.AvalonDock.Layout;
@@ -41,7 +42,7 @@ namespace ArduinoEmulator.MVVM
                 object document = new LayoutDocument()
                 {
                     Title = fileName,
-                    Content= new TextBox {Text = text }
+                    Content= new TextEditor { Text = text }
                 };
                 return (T)document;
             }

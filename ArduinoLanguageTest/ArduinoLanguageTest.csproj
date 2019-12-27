@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="xcopy $(SolutionDir)TestCodeSample\*.ino $(TargetDir)" />
+    <Exec Command="xcopy $(SolutionDir)TestCodeSample\*.ino $(TargetDir) /Y" />
   </Target>
 
 </Project>
