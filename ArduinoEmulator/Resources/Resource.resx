@@ -172,6 +172,9 @@
   <data name="Editor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>editor.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="ErrorPaneName" xml:space="preserve">
+    <value>Error list</value>
+  </data>
   <data name="ErrorWndMessage" xml:space="preserve">
     <value>Error</value>
   </data>
@@ -198,6 +201,9 @@
   </data>
   <data name="Help" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>help.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LexemeListPane" xml:space="preserve">
+    <value>Lexeme list</value>
   </data>
   <data name="LICENSE" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>license;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -256,6 +262,12 @@
   <data name="MenuItemSaveAs" xml:space="preserve">
     <value>Save as...</value>
   </data>
+  <data name="MenuItemToolbarHeader" xml:space="preserve">
+    <value>Toolbar panels</value>
+  </data>
+  <data name="MenuItemToolbarStandard" xml:space="preserve">
+    <value>Standart toolbar</value>
+  </data>
   <data name="MenuItemView" xml:space="preserve">
     <value>View</value>
   </data>
@@ -288,6 +300,12 @@
   </data>
   <data name="Save_As" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>save as.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Turn_left" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>turn left.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Turn_right" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>turn right.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>warning.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

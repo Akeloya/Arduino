@@ -232,6 +232,15 @@ namespace ArduinoEmulator.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Error list.
+        /// </summary>
+        public static string ErrorPaneName {
+            get {
+                return ResourceManager.GetString("ErrorPaneName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Error.
         /// </summary>
         public static string ErrorWndMessage {
@@ -315,6 +324,15 @@ namespace ArduinoEmulator.Resources {
             get {
                 object obj = ResourceManager.GetObject("Help", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Lexeme list.
+        /// </summary>
+        public static string LexemeListPane {
+            get {
+                return ResourceManager.GetString("LexemeListPane", resourceCulture);
             }
         }
         
@@ -491,6 +509,24 @@ namespace ArduinoEmulator.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Toolbar panels.
+        /// </summary>
+        public static string MenuItemToolbarHeader {
+            get {
+                return ResourceManager.GetString("MenuItemToolbarHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Standart toolbar.
+        /// </summary>
+        public static string MenuItemToolbarStandard {
+            get {
+                return ResourceManager.GetString("MenuItemToolbarStandard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на View.
         /// </summary>
         public static string MenuItemView {
@@ -591,6 +627,26 @@ namespace ArduinoEmulator.Resources {
         public static byte[] Save_As {
             get {
                 object obj = ResourceManager.GetObject("Save_As", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] Turn_left {
+            get {
+                object obj = ResourceManager.GetObject("Turn_left", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] Turn_right {
+            get {
+                object obj = ResourceManager.GetObject("Turn_right", resourceCulture);
                 return ((byte[])(obj));
             }
         }

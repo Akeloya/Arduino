@@ -18,6 +18,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.Highlighting;
 using System;
 using System.Windows.Controls;
 using Xceed.Wpf.AvalonDock.Layout;
@@ -30,7 +31,7 @@ namespace ArduinoEmulator.MVVM
         public static T DocumentFactory<T>(object[] data = null) where T : notnull
         {
             Type t = typeof(T);
-            if(t == typeof(LayoutDocument))
+            if (t == typeof(LayoutDocument))
             {
                 string text = null;
                 string fileName = Resources.Resource.NewSketchName;
@@ -39,14 +40,23 @@ namespace ArduinoEmulator.MVVM
                     fileName = data[0]?.ToString();
                     text = data[1]?.ToString();
                 }
+                var typeConverter = new HighlightingDefinitionTypeConverter();
                 object document = new LayoutDocument()
                 {
                     Title = fileName,
-                    Content= new TextEditor { Text = text }
+                    Content = new TextEditor
+                    {
+                        Text = text,
+                        SyntaxHighlighting = (IHighlightingDefinition)typeConverter.ConvertFrom("C++"),
+                        ShowLineNumbers = true
+                    }
                 };
                 return (T)document;
             }
+            if (t == typeof(LayoutAnchorable))
+            {
 
+            }
             throw new NotImplementedException();
         }
     }

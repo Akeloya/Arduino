@@ -10,13 +10,14 @@
         xmlns:toolbars="clr-namespace:ArduinoEmulator.Toolbars"
         xmlns:converters="clr-namespace:ArduinoEmulator.Converters"
         xmlns:ctr="clr-namespace:ArduinoEmulator.Controls"
+        xmlns:pane="clr-namespace:ArduinoEmulator.AnchorablePanes"
         mc:Ignorable="d"
         Title="{x:Static res:Resource.MainWindowTitle}" Height="450" Width="800" ShowInTaskbar="true" WindowState="Maximized">
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static cmd:MenuCommands.FullScreen}" Executed="FullScreen_Executed"></CommandBinding>
         <CommandBinding Command="{x:Static cmd:MenuCommands.New}" Executed="New_Executed"></CommandBinding>
         <CommandBinding Command="{x:Static cmd:MenuCommands.Open}" Executed="Open_Executed"></CommandBinding>
-        <CommandBinding Command="{x:Static cmd:MenuCommands.Close}"></CommandBinding>
+        <CommandBinding Command="{x:Static cmd:MenuCommands.Close}" Executed="CloseFile_Executed"></CommandBinding>
         <CommandBinding Command="{x:Static cmd:MenuCommands.Save}"></CommandBinding>
         <CommandBinding Command="{x:Static cmd:MenuCommands.SaveAs}"></CommandBinding>
         <CommandBinding Command="{x:Static cmd:MenuCommands.Print}" Executed="Print_Executed"></CommandBinding>
@@ -58,8 +59,11 @@
             </ctr:MenuItem>
             <MenuItem Header="{x:Static res:Resource.MenuItemEdit}"></MenuItem>
             <MenuItem Header="{x:Static res:Resource.MenuItemView}">
-                <MenuItem Header="{x:Static res:Resource.MenuItemViewDisplay}"></MenuItem>
-                <MenuItem Header="{x:Static res:Resource.MenuItemViewError}"></MenuItem>
+                <ctr:MenuItem ResourceHeader="MenuItemViewDisplay"></ctr:MenuItem>
+                <ctr:MenuItem ResourceHeader="MenuItemViewError"></ctr:MenuItem>
+                <ctr:MenuItem ResourceHeader="MenuItemToolbarHeader">
+                    <ctr:MenuItem ResourceHeader="MenuItemToolbarStandard"></ctr:MenuItem>
+                </ctr:MenuItem>
             </MenuItem>
             <MenuItem Header="{x:Static res:Resource.MenuItemDebugging}">
                 <MenuItem Header="{x:Static res:Resource.MenuItemBuild}" Command="{x:Static cmd:MenuCommands.Build}"></MenuItem>
@@ -83,16 +87,10 @@
                                     ConverterParameter=true}" ImageResourceName="Full Screen">
             </ctr:ImageMenuItem>
         </Menu>
-        <ToolBarTray Grid.Row="1" AllowDrop="true">
+        <ToolBarTray Grid.Row="1" AllowDrop="true" >
             <toolbars:StandardToolbar>
-                
+
             </toolbars:StandardToolbar>
-            <ToolBar Width="50">
-                <Button Width="23" Height="23" Command="{x:Static cmd:BuildMenuCommands.Build}"></Button>
-            </ToolBar>
-            <ToolBar Width="50">
-                <Button Width="23" Height="23" Command="{x:Static cmd:MenuCommands.Build}"></Button>
-            </ToolBar>
         </ToolBarTray>
         <xcad:DockingManager Grid.Row="2">
             <xcad:LayoutRoot>
@@ -100,6 +98,20 @@
                     <xcad:LayoutDocumentPane x:Name="LdXceedDocPanel">
                     </xcad:LayoutDocumentPane>
                 </xcad:LayoutPanel>
+                <xcad:LayoutRoot.LeftSide>
+                    <xcad:LayoutAnchorSide>
+                        <xcad:LayoutAnchorGroup>
+                            <pane:LexemeList></pane:LexemeList>
+                        </xcad:LayoutAnchorGroup>
+                    </xcad:LayoutAnchorSide>
+                </xcad:LayoutRoot.LeftSide>
+                <xcad:LayoutRoot.BottomSide>
+                    <xcad:LayoutAnchorSide>
+                        <xcad:LayoutAnchorGroup x:Name="BottomGroup">
+                            <pane:ErrorPane></pane:ErrorPane>
+                        </xcad:LayoutAnchorGroup>
+                    </xcad:LayoutAnchorSide>
+                </xcad:LayoutRoot.BottomSide>
             </xcad:LayoutRoot>
         </xcad:DockingManager>
         <StatusBar Grid.Row="3"></StatusBar>

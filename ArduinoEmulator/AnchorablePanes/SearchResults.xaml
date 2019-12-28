@@ -1,0 +1,17 @@
+﻿<xcad:LayoutAnchorable x:Class="ArduinoEmulator.AnchorablePanes.SearchResults"
+    xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ArduinoEmulator.AnchorablePanes"
+             mc:Ignorable="d" 
+             >
+    <DataGrid>
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="File"></DataGridTextColumn>
+            <DataGridTextColumn Header="Line"></DataGridTextColumn>
+            <DataGridTextColumn Header="String"></DataGridTextColumn>
+        </DataGrid.Columns>
+    </DataGrid>
+</xcad:LayoutAnchorable>

@@ -42,12 +42,29 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="Revert" TargetType="{x:Type Button}" BasedOn="{StaticResource DefaultButton}">
+            <Setter Property="Content">
+                <Setter.Value>
+                    <Image Source="{Binding Source={x:Static res:Resource.Turn_left},Converter={StaticResource Converter}}"></Image>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Repeat" TargetType="{x:Type Button}" BasedOn="{StaticResource DefaultButton}">
+            <Setter Property="Content">
+                <Setter.Value>
+                    <Image Source="{Binding Source={x:Static res:Resource.Turn_right},Converter={StaticResource Converter}}"></Image>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </ToolBar.Resources>
     <Button Style="{StaticResource NewFile}"></Button>
     <Button Style="{StaticResource FolderOpen}"></Button>
     <Button Style="{StaticResource Save}"></Button>
     <Button Style="{StaticResource SaveAll}"></Button>
     <Separator></Separator>
+    <Button Style="{StaticResource Revert}"></Button>
+    <Button Style="{StaticResource Repeat}"></Button>
+    <Separator></Separator>
     <Button Style="{StaticResource DefaultButton}"></Button>
-    <Button></Button>
+    <Button Style="{StaticResource DefaultButton}"></Button>
 </ToolBar>

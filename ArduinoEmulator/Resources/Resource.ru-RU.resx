@@ -141,6 +141,9 @@
   <data name="CloseButton" xml:space="preserve">
     <value>Закрыть</value>
   </data>
+  <data name="ErrorPaneName" xml:space="preserve">
+    <value>Список ошибок</value>
+  </data>
   <data name="ErrorWndMessage" xml:space="preserve">
     <value>Ошибка</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="FileNotFoundException" xml:space="preserve">
     <value>Файл {0} не найден или приложение не может получить к нему доступ</value>
+  </data>
+  <data name="LexemeListPane" xml:space="preserve">
+    <value>Список лексем</value>
   </data>
   <data name="LicenseLabel" xml:space="preserve">
     <value>Лицензия</value>
@@ -203,6 +209,12 @@
   </data>
   <data name="MenuItemSaveAs" xml:space="preserve">
     <value>Сохранить как...</value>
+  </data>
+  <data name="MenuItemToolbarHeader" xml:space="preserve">
+    <value>Панели инструментов</value>
+  </data>
+  <data name="MenuItemToolbarStandard" xml:space="preserve">
+    <value>Стандартная</value>
   </data>
   <data name="MenuItemView" xml:space="preserve">
     <value>Вид</value>

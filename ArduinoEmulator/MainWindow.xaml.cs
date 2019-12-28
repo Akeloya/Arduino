@@ -173,5 +173,13 @@ namespace ArduinoEmulator
                 
             }
         }
+
+        private void CloseFile_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if(LdXceedDocPanel.SelectedContent is LayoutDocument document)
+            {
+                document.Close();
+            }
+        }
     }
 }
