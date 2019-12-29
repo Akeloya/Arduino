@@ -45,11 +45,11 @@
                 <Separator></Separator>
                 <ctr:MenuItem ResourceHeader="MenuItemClose" CommandName="Close"></ctr:MenuItem>
                 <Separator></Separator>
-                <ctr:ImageMenuItem ResourceHeader="MenuItemSave" CommandName="Save" ImageResourceName="Save"></ctr:ImageMenuItem>
-                <ctr:ImageMenuItem ResourceHeader="MenuItemSaveAs" CommandName="SaveAs" ImageResourceName="Save_As"></ctr:ImageMenuItem>
+                <ctr:MenuItem ResourceHeader="MenuItemSave" CommandName="Save" ImageName="Save"></ctr:MenuItem>
+                <ctr:MenuItem ResourceHeader="MenuItemSaveAs" CommandName="SaveAs" ImageName="Save_As"></ctr:MenuItem>
                 <Separator></Separator>
                 <ctr:MenuItem ResourceHeader="MenuItemPageSettings" CommandName="PageSettings"></ctr:MenuItem>
-                <ctr:ImageMenuItem ResourceHeader="MenuItemPrint" CommandName="Print" ImageResourceName="Printer"></ctr:ImageMenuItem>
+                <ctr:MenuItem ResourceHeader="MenuItemPrint" CommandName="Print" ImageName="Printer"></ctr:MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="{x:Static res:Resource.MenuItemRecent}" SubmenuOpened="Recent_SubMenuOpened">
                     <MenuItem Header="Empty" Command="{x:Static cmd:MenuCommands.Recent}"></MenuItem>
@@ -57,35 +57,35 @@
                 <Separator></Separator>
                 <MenuItem Header="{x:Static res:Resource.MenuItemExit}" Command="Close"></MenuItem>
             </ctr:MenuItem>
-            <MenuItem Header="{x:Static res:Resource.MenuItemEdit}"></MenuItem>
-            <MenuItem Header="{x:Static res:Resource.MenuItemView}">
+            <ctr:MenuItem ResourceHeader="MenuItemEdit"></ctr:MenuItem>
+            <ctr:MenuItem ResourceHeader="MenuItemView">
                 <ctr:MenuItem ResourceHeader="MenuItemViewDisplay"></ctr:MenuItem>
                 <ctr:MenuItem ResourceHeader="MenuItemViewError"></ctr:MenuItem>
                 <ctr:MenuItem ResourceHeader="MenuItemToolbarHeader">
                     <ctr:MenuItem ResourceHeader="MenuItemToolbarStandard"></ctr:MenuItem>
                 </ctr:MenuItem>
-            </MenuItem>
+            </ctr:MenuItem>
             <MenuItem Header="{x:Static res:Resource.MenuItemDebugging}">
                 <MenuItem Header="{x:Static res:Resource.MenuItemBuild}" Command="{x:Static cmd:MenuCommands.Build}"></MenuItem>
             </MenuItem>
             <MenuItem Header="{x:Static res:Resource.MenuItemWindow}">
-                <ctr:ImageMenuItem ResourceHeader="MenuItemFullScreen"
+                <ctr:MenuItem ResourceHeader="MenuItemFullScreen"
                                     CommandName="FullScreen"
-                                   ImageResourceName="Full_Screen">
-                </ctr:ImageMenuItem>
+                                    ImageName="Full_Screen">
+                </ctr:MenuItem>
             </MenuItem>
             <ctr:MenuItem ResourceHeader="MenuItemHelp">
                 <ctr:MenuItem ResourceHeader="MenuItemAbout" CommandName="AboutBox">
                 </ctr:MenuItem>
             </ctr:MenuItem>
-            <ctr:ImageMenuItem ResourceHeader="MenuItemFullScreen"
+            <ctr:MenuItem ResourceHeader="MenuItemFullScreen"
                       CommandName="FullScreen"
                       Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
                                                             AncestorType={x:Type local:MainWindow}},
                                     Path=IsFullScreen,
                                     Converter={StaticResource BoolToVisibility},
-                                    ConverterParameter=true}" ImageResourceName="Full Screen">
-            </ctr:ImageMenuItem>
+                                    ConverterParameter=true}" ImageName="Full Screen">
+            </ctr:MenuItem>
         </Menu>
         <ToolBarTray Grid.Row="1" AllowDrop="true" >
             <toolbars:StandardToolbar>
@@ -108,7 +108,8 @@
                 <xcad:LayoutRoot.BottomSide>
                     <xcad:LayoutAnchorSide>
                         <xcad:LayoutAnchorGroup x:Name="BottomGroup">
-                            <pane:ErrorPane></pane:ErrorPane>
+                            <pane:ErrorListPane></pane:ErrorListPane>
+                            <pane:ViewLayoutPane x:Name="viewLayout"></pane:ViewLayoutPane>
                         </xcad:LayoutAnchorGroup>
                     </xcad:LayoutAnchorSide>
                 </xcad:LayoutRoot.BottomSide>

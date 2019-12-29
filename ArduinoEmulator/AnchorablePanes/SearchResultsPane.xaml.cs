@@ -17,9 +17,9 @@ namespace ArduinoEmulator.AnchorablePanes
     /// <summary>
     /// Логика взаимодействия для SearchResults.xaml
     /// </summary>
-    public partial class SearchResults : LayoutAnchorable
+    public partial class SearchResultsPane : LayoutAnchorable
     {
-        public SearchResults()
+        public SearchResultsPane()
         {
             InitializeComponent();
         }

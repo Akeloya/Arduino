@@ -328,6 +328,15 @@ namespace ArduinoEmulator.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на .
+        /// </summary>
+        public static string Layou {
+            get {
+                return ResourceManager.GetString("Layou", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Lexeme list.
         /// </summary>
         public static string LexemeListPane {

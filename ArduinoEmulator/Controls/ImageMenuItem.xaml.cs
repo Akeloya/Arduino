@@ -38,16 +38,6 @@ namespace ArduinoEmulator.Controls
             InitializeComponent();
         }
 
-        public string ImageResourceName { get { return GetValue(ImageResourceNameProperty)?.ToString(); } set { SetValue(ImageResourceNameProperty, value); } }
-        public static readonly DependencyProperty ImageResourceNameProperty = DependencyProperty.Register(nameof(ImageResourceName), typeof(string), typeof(ImageMenuItem), new PropertyMetadata(null, (sender, args) => {
-            
-            if (args.NewValue == null)
-                return;
-            ImageMenuItem control = (ImageMenuItem)sender;
-            control.ResourceImage = ResourceStringResolver.ResolveImageString(args.NewValue.ToString());
-        }));
-
-        internal byte[] ResourceImage { get { return (byte[])GetValue(ResourceImageProperty); } set { SetValue(ResourceImageProperty, value); } }
-        internal static readonly DependencyProperty ResourceImageProperty = DependencyProperty.Register(nameof(ResourceImage), typeof(byte[]), typeof(ImageMenuItem));
+        
     }
 }

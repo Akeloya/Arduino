@@ -6,9 +6,9 @@ namespace ArduinoEmulator.AnchorablePanes
     /// <summary>
     /// Логика взаимодействия для ErrorPane.xaml
     /// </summary>
-    public partial class ErrorPane : LayoutAnchorable
+    public partial class ErrorListPane : LayoutAnchorable
     {
-        public ErrorPane()
+        public ErrorListPane()
         {
             InitializeComponent();
             Title = Resource.ErrorPaneName;

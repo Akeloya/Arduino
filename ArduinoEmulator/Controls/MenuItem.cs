@@ -18,8 +18,13 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 using ArduinoEmulator.Commands;
+using ArduinoEmulator.Converters;
 using ArduinoEmulator.Core;
+using System.IO;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Media.Imaging;
 
 namespace ArduinoEmulator.Controls
 {
@@ -51,5 +56,26 @@ namespace ArduinoEmulator.Controls
                 menuItem.Header = ResourceStringResolver.ResolveStringValue(args.NewValue.ToString());
             }
         }));
+
+        public string ImageName { get { return GetValue(ImageResourceNameProperty)?.ToString(); } set { SetValue(ImageResourceNameProperty, value); } }
+        public static readonly DependencyProperty ImageResourceNameProperty = DependencyProperty.Register(nameof(ImageName), typeof(string), typeof(MenuItem), new PropertyMetadata(null, (sender, args) => {
+
+            if (args.NewValue == null)
+                return;
+            byte[] imageData = ResourceStringResolver.ResolveImageString(args.NewValue.ToString());
+            MenuItem control = (MenuItem)sender;
+            using MemoryStream stream = new MemoryStream(imageData);
+            control.Icon = new Image() { Source = new BitmapImage() { StreamSource = stream} };
+            //control.ResourceImage = ResourceStringResolver.ResolveImageString(args.NewValue.ToString());
+            /*Image image = new Image();
+            Binding binding = new Binding();
+            binding.RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(MenuItem), 1);
+            binding.Path = new PropertyPath(nameof(ResourceImage));
+            binding.Converter = new ByteArrayToImageConverter();
+            image.SetBinding(Image.SourceProperty, binding);*/
+        }));
+
+        internal byte[] ResourceImage { get { return (byte[])GetValue(ResourceImageProperty); } set { SetValue(ResourceImageProperty, value); } }
+        internal static readonly DependencyProperty ResourceImageProperty = DependencyProperty.Register(nameof(ResourceImage), typeof(byte[]), typeof(MenuItem));
     }
 }

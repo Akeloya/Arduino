@@ -24,6 +24,7 @@ using ArduinoEmulator.Forms;
 using ArduinoEmulator.MVVM;
 using ArduinoLanguage;
 using ArduinoLanguage.Errors;
+using ICSharpCode.AvalonEdit;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -70,15 +71,15 @@ namespace ArduinoEmulator
 
         private void Build_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            /*var text = File.ReadAllText(@"C:\Users\Максим\Source\Repos\Arduino\ArduinoLanguageTest\TestCodeSample\Analog read serial.ino");
-            rtbDisplay.Text = text + "\n\n-----------------------\n";
+            if (LdXceedDocPanel.SelectedContent == null)
+                return;
+            string text = ((TextEditor)LdXceedDocPanel.SelectedContent.Content).Text;            
             LexemeAnalisis analisis = new LexemeAnalisis(text);
             IEnumerable<Error> errors = analisis.Analyse();
-            rtbDisplay.Text = text + "\n\n-----------------------\n";
             foreach (Lexeme lexem in analisis.LexemeList)
             {
-                rtbDisplay.Text += lexem.LexemValue + "\n";
-            }*/
+                viewLayout.LayoutText += lexem.LexemValue + "\n";
+            }
         }
 
         private void AboutBox_Executed(object sender, ExecutedRoutedEventArgs e)
