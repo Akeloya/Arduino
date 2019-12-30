@@ -65,14 +65,12 @@ namespace ArduinoEmulator.Controls
             byte[] imageData = ResourceStringResolver.ResolveImageString(args.NewValue.ToString());
             MenuItem control = (MenuItem)sender;
             using MemoryStream stream = new MemoryStream(imageData);
-            control.Icon = new Image() { Source = new BitmapImage() { StreamSource = stream} };
-            //control.ResourceImage = ResourceStringResolver.ResolveImageString(args.NewValue.ToString());
-            /*Image image = new Image();
-            Binding binding = new Binding();
-            binding.RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(MenuItem), 1);
-            binding.Path = new PropertyPath(nameof(ResourceImage));
-            binding.Converter = new ByteArrayToImageConverter();
-            image.SetBinding(Image.SourceProperty, binding);*/
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.StreamSource = stream;
+            image.EndInit();
+            control.Icon = new Image() { Source = image };
         }));
 
         internal byte[] ResourceImage { get { return (byte[])GetValue(ResourceImageProperty); } set { SetValue(ResourceImageProperty, value); } }
