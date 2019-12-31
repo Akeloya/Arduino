@@ -7,7 +7,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ArduinoEmulator.AnchorablePanes"
              mc:Ignorable="d">
-    <TextBox IsReadOnly="true" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ViewLayoutPane}},
-        Path=LayoutText,
-        Mode=OneWay}"></TextBox>
+    <TextBox IsReadOnly="true" Name="TbDisplayData" TextWrapping="WrapWithOverflow"></TextBox>
+    <!--Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type xcad:LayoutAnchorable}},-->
 </xcad:LayoutAnchorable>

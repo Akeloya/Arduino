@@ -16,6 +16,12 @@ namespace ArduinoEmulator.AnchorablePanes
         }
 
         public string LayoutText { get { return GetValue(LayoutTextProperty)?.ToString(); } set { SetValue(LayoutTextProperty, value); } }
-        public static readonly DependencyProperty LayoutTextProperty = DependencyProperty.Register(nameof(LayoutText), typeof(string), typeof(ViewLayoutPane));
+        public static readonly DependencyProperty LayoutTextProperty = DependencyProperty.Register(nameof(LayoutText),
+            typeof(string),
+            typeof(LayoutAnchorable),
+            new PropertyMetadata(null, (sender, args)=> {
+                ViewLayoutPane pane = (ViewLayoutPane)sender;
+                pane.TbDisplayData.Text = args.NewValue?.ToString();
+            }));
     }
 }
